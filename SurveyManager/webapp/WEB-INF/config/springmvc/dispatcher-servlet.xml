@@ -17,17 +17,17 @@
     <mvc:interceptors>
     	<mvc:interceptor>
     		<!-- 로그인 필요한 URL만 막기 -->
-    		<mvc:mapping path="/survey/**/"/>
+    		<mvc:mapping path="/survey/**"/>
     		<!-- 필요하면 추가 -->
     		<!-- <mvc:mapping path="/board/write/**/> -->
     		<!-- <mvc:mapping path="/comment/**"/ -->
     		
-    		<bean class="com.practice.interceptor.LoginInterceptor"/>
+    		<bean class="com.dohyun.survey.interceptor.LoginInterceptor"/>
     	</mvc:interceptor>
     </mvc:interceptors>
 
     <!-- 2. 컨트롤러 패키지 스캔 (네 프로젝트에 맞게 수정) -->
-    <context:component-scan base-package="com.practice" />
+    <context:component-scan base-package="com.dohyun" />
 
     <!-- 3. JSP View Resolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -21,7 +21,7 @@
     
     <listener>
 	    <listener-class>
-	        com.practice.listener.JdbcCleanupListener
+	        com.dohyun.survey.listener.JdbcCleanupListener
 	    </listener-class>
 	</listener>
 

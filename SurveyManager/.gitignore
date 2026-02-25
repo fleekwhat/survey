@@ -1,1 +1,43 @@
-/build/
+# ===== Java =====
+*.class
+*.log
+*.ctxt
+*.jar
+*.war
+*.ear
+
+# ===== Eclipse =====
+.metadata/
+.classpath
+.project
+.settings/
+bin/
+
+# ===== IntelliJ (혹시 쓸 수도 있어서) =====
+.idea/
+*.iml
+out/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+
+# ===== Maven/Gradle =====
+target/
+build/
+
+# ===== Node (혹시 프론트 있으면) =====
+node_modules/
+
+# ===== Tomcat =====
+tmp/
+temp/
+work/
+logs/
+
+# ===== uploads (파일업로드 폴더 있으면) =====
+upload/
+uploads/
+
+# ===== env =====
+.env
