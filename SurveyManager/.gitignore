@@ -12,8 +12,9 @@
 .project
 .settings/
 bin/
+Servers/
 
-# ===== IntelliJ (혹시 쓸 수도 있어서) =====
+# ===== IntelliJ =====
 .idea/
 *.iml
 out/
@@ -26,7 +27,7 @@ Thumbs.db
 target/
 build/
 
-# ===== Node (혹시 프론트 있으면) =====
+# ===== Node =====
 node_modules/
 
 # ===== Tomcat =====
@@ -34,10 +35,17 @@ tmp/
 temp/
 work/
 logs/
+wtpwebapps/
 
-# ===== uploads (파일업로드 폴더 있으면) =====
+# ===== uploads (파일 업로드 경로) =====
 upload/
 uploads/
 
 # ===== env =====
 .env
+
+# ===== MyBatis log / local =====
+*.sql.log
+
+# ===== VSCode (혹시 쓸 경우) =====
+.vscode/
