@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dohyun.survey.mapper.SurveyMapper">
+
+  <!-- survey_main (SurveyMainVO에 createdAt 없으니 created_at 제외) -->
+  <resultMap id="SurveyMainMap" type="com.dohyun.survey.vo.SurveyMainVO">
+    <id     column="survey_id"   property="surveyId"/>
+    <result column="title"       property="title"/>
+    <result column="description" property="description"/>
+    <result column="start_at"    property="startAt"/>
+    <result column="end_at"      property="endAt"/>
+    <result column="status"      property="status"/>
+  </resultMap>
+  
+  <!-- survey_question -->
+  <resultMap id="SurveyQuestionMap" type="com.dohyun.survey.vo.SurveyQuestionVO">
+    <id     column="question_id"   property="questionId"/>
+    <result column="survey_id"     property="surveyId"/>
+    <result column="question_text" property="questionText"/>
+    <result column="question_type" property="questionType"/>
+    <result column="is_required"   property="isRequired"/>
+    <result column="display_order" property="displayOrder"/>
+    <result column="min_select"    property="minSelect"/>
+    <result column="max_select"    property="maxSelect"/>
+    <result column="created_at"    property="createdAt"/>
+  </resultMap>
+
+  <!-- survey_choice (created_at 없음) -->
+  <resultMap id="SurveyChoiceMap" type="com.dohyun.survey.vo.SurveyChoiceVO">
+    <id     column="choice_id"     property="choiceId"/>
+    <result column="question_id"   property="questionId"/>
+    <result column="choice_text"   property="choiceText"/>
+    <result column="choice_value"  property="choiceValue"/>
+    <result column="display_order" property="displayOrder"/>
+  </resultMap>
+	
+	<insert id="insertSurveyMain"
+			parameterType="com.dohyun.survey.vo.SurveyMainVO"
+			useGeneratedKeys="true"
+			keyProperty="surveyId">
+		
+		INSERT INTO survey_main
+			(title, description, start_at, end_at, status, created_at, updated_at)
+		VALUES
+			(#{title}, #{description}, #{startAt}, #{endAt}, #{status}, NOW(), NOW())
+	
+	</insert>
+	
+	<insert id="insertSurveyQuestion"
+			parameterType="com.dohyun.survey.vo.SurveyQuestionVO"
+			useGeneratedKeys="true"
+			keyProperty="questionId">
+			
+		INSERT INTO survey_question
+			(survey_id, question_text, question_type, is_required, display_order, min_select, max_select, created_at)
+		VALUES
+			(#{surveyId}, #{questionText}, #{questionType}, #{isRequired}, #{displayOrder}, #{minSelect}, #{maxSelect}, NOW())
+			
+	</insert>
+	
+	<insert id="insertSurveyChoice"
+			parameterType="com.dohyun.survey.vo.SurveyChoiceVO"
+			useGeneratedKeys="true"
+			keyProperty="choicedId">
+	
+		INSERT INTO survey_choice
+			(question_id, choice_text, choice_value, display_order)
+		VALUES
+			(#{questionId}, #{choiceText}, #{choiceValue}, #{displayOrder})
+	
+	</insert>
+	
+	<!-- 설문 메인 1건 -->
+	<select id="selectSurveyMain" parameterType="java.lang.Long" resultMap="SurveyMainMap">
+		SELECT
+			survey_id, title, description, start_at, end_at, status
+		FROM survey_main
+		WHERE survey_id = #{surveyId}
+	</select>
+	
+	<!-- 질문 리스트 -->
+	<select id="selectSurveyQuestions" parameterType="java.lang.Long" resultMap="SurveyQuestionMap">
+		SELECT
+			question_id, survey_id, question_text, question_type, is_required,
+			display_order, min_select, created_at
+		FROM survey_question
+		WHERE survey_id = #{surveyId}
+		ORDER BY display_order ASC, question_id ASC
+	</select>
+	
+	<!-- 선택지 리스트 -->
+	<select id="selectSurveyChoicesBySurvey" parameterType="java.lang.Long" resultMap="SurveyChoiceMap">
+		SELECT
+			c.choice_id, c.question_id, c.choice_text, c.choice_value, c.display_order
+		FROM survey_choice c
+		INNER JOIN survey_question q ON q.question_id = c.question_id
+		WHERE q.survey_id = #{surveyId}
+		ORDER BY c.question_id ASC, c.display_order ASC, c.choice_id ASC
+	</select>
+
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- 1. @Controller, @RequestMapping 활성화 -->
+    <mvc:annotation-driven />
+    
+    <mvc:interceptors>
+
+	  <!-- 로그인 필요한 영역 -->
+	  <mvc:interceptor>
+	    <mvc:mapping path="/respond/**"/>
+	    <mvc:mapping path="/admin/**"/>
+	    <bean class="com.dohyun.survey.interceptor.LoginInterceptor"/>
+	  </mvc:interceptor>
+	
+	  <!-- 관리자 전용 영역 -->
+	  <mvc:interceptor>
+	    <mvc:mapping path="/admin/**"/>
+	    <bean class="com.dohyun.survey.interceptor.AdminInterceptor"/>
+	  </mvc:interceptor>
+	
+	</mvc:interceptors>
+
+    <!-- 2. 컨트롤러 패키지 스캔 (네 프로젝트에 맞게 수정) -->
+    <context:component-scan base-package="com.dohyun" />
+    
+    <bean id="tilesConfigurer"
+	      class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+	  <property name="definitions">
+	    <list>
+	      <value>/WEB-INF/tiles/tiles.xml</value>
+	    </list>
+	  </property>
+	  <property name="checkRefresh" value="true"/>
+	</bean>
+
+    <!-- 3. JSP View Resolver -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+        <property name="order" value="2"/>
+    </bean>
+    
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	  <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+	  <property name="order" value="1"/>
+	</bean>
+    
+    <bean id="multipartResolver"
+      class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+	
+	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	
+	<mvc:resources mapping="/uploads/**" location="file:C:/Playground/upload/" />
+	
+
+
+
+</beans>

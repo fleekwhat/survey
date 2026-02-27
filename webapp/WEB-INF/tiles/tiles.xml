@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+  <!-- 공통 레이아웃 -->
+  <definition name="layout" template="/WEB-INF/tiles/layout.jsp">
+    <put-attribute name="title" value="Survey Manager" />
+    <put-attribute name="body" value="" />
+  </definition>
+
+  <!-- (옵션) 루트 홈: return "home"; -> /WEB-INF/jsp/index.jsp -->
+  <definition name="home" extends="layout">
+    <put-attribute name="title" value="Home" />
+    <put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />
+  </definition>
+
+  <!-- ★ 핵심: 1-depth 자동 매핑 -->
+  <!-- return "login"; -> /WEB-INF/jsp/login.jsp -->
+  <definition name="*" extends="layout">
+    <put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
+  </definition>
+
+  <!-- ★ 핵심: 2-depth 자동 매핑 -->
+  <!-- return "survey/survey_main"; -> /WEB-INF/jsp/survey/survey_main.jsp -->
+  <definition name="*/*" extends="layout">
+    <put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
+  </definition>
+
+  <!-- (필요하면) 3-depth까지 -->
+  <!-- return "admin/user/list"; -> /WEB-INF/jsp/admin/user/list.jsp -->
+  <definition name="*/*/*" extends="layout">
+    <put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}.jsp" />
+  </definition>
+  
+  <definition name="error/403" extends="layout">
+	  <put-attribute name="title" value="403 - 접근 권한 없음"/>
+	  <put-attribute name="body" value="/WEB-INF/jsp/common/403.jsp"/>
+  </definition>
+
+</tiles-definitions>

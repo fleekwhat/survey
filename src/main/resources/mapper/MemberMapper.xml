@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dohyun.survey.mapper.MemberMapper">
+	  <select id="selectMemberByLoginId" parameterType="String"
+            resultType="com.dohyun.survey.vo.MemberVO">
+        SELECT
+            member_id,
+            login_id,
+            password_hash,
+            name,
+            email,
+            phone,
+            role,
+            status,
+            last_login_at,
+            created_at,
+            updated_at
+        FROM member
+        WHERE login_id = #{loginId}
+          AND status = 'ACTIVE'
+    </select>
+    
+</mapper>
