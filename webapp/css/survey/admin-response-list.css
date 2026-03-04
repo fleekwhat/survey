@@ -1,0 +1,74 @@
+@charset "UTF-8";@charset "UTF-8";
+
+/* 상단 */
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+
+.sub{
+  font-size:13px;
+  color:var(--muted2);
+  font-weight:700;
+}
+
+/* empty */
+.empty{
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:var(--r-lg);
+  padding:16px;
+  color:var(--muted);
+  font-weight:800;
+}
+
+/* 링크 */
+.link{
+  font-weight:900;
+  color:var(--text);
+  text-decoration:none;
+}
+.link:hover{
+  text-decoration:underline;
+}
+
+/* 회원 영역 */
+.member{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.login{
+  font-weight:800;
+}
+.name{
+  font-size:13px;
+  color:var(--muted2);
+}
+
+/* 가운데 정렬 */
+.center{
+  text-align:center;
+}
+
+/* 날짜 */
+.date{
+  font-size:13px;
+  color:var(--muted2);
+}
+
+/* 응답ID 텍스트 느낌 */
+.rid{
+  color: var(--muted2);
+  font-weight: 800;
+}
+
+/* 모바일 */
+@media (max-width:560px){
+  .tbl th:nth-child(4),
+  .tbl td:nth-child(4){
+    display:none;
+  }
+}

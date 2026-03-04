@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+/* 응답 상세에서만 쓰는 보조 스타일 */
+.answer-row{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin-top:10px;
+}
+
+.answer-text{
+  font-weight:700;
+  color: var(--text);
+}
+
+.answer-box{
+  width:100%;
+  padding:10px;
+  border:1px solid var(--line2);
+  border-radius: var(--r-md);
+  background:#fff;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+/* ===== STAR read-only fill layer ===== */
+/* 기존 .star5 / .star5-icons 그대로 사용 */
+.star5-readonly{
+  height: 24px;         /* 아이콘 높이에 맞춤 */
+  width: 125px;         /* 기존과 동일 */
+}
+
+/* 채움 레이어: width만 조절해서 별을 “채워 보이게” */
+.star5-fill{
+  position:absolute;
+  inset:0;
+  width:0%;             /* JS가 %로 채움 */
+  overflow:hidden;
+  z-index:2;
+  pointer-events:none;
+}
+
+/* 채워진 별 색 */
+.star5-readonly .star5-fill .star5-icons svg{
+  fill: #f59e0b;
+}
+
+/* overlay(클릭용)가 혹시 남아있으면 무력화 */
+.star5-readonly .star5-overlay{
+  display:none !important;
+}

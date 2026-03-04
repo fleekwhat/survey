@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>설문조사</title>
+<title>Insert title here</title>
 </head>
 <body>
-	
+
 </body>
 </html>

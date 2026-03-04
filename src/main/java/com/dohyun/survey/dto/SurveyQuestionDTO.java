@@ -14,14 +14,14 @@ public class SurveyQuestionDTO {
 	public String getQuestionText() {
 		return questionText;
 	}
-	public void setQuestionText(String qeustionText) {
-		this.questionText = qeustionText;
+	public void setQuestionText(String questionText) {
+		this.questionText = questionText;
 	}
 	public String getQuestionType() {
 		return questionType;
 	}
-	public void setQuestionType(String qeustionType) {
-		this.questionType = qeustionType;
+	public void setQuestionType(String questionType) {
+		this.questionType = questionType;
 	}
 	public int getIsRequired() {
 		return isRequired;

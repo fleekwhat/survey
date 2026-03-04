@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+/* ===== 응답 상세용 보조 스타일 ===== */
+.answer-row{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin-top:10px;
+}
+
+.answer-text{
+  font-weight:700;
+  color: var(--text);
+}
+
+.answer-box{
+  width:100%;
+  padding:10px;
+  border:1px solid var(--line2);
+  border-radius: var(--r-md);
+  background:#fff;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+/* ===== STAR read-only fill layer ===== */
+/* 기존 view.css의 .star5 / .star5-icons 를 그대로 이용 */
+.star5-readonly{
+  position: relative;
+  width: 125px;
+  height: 28px;
+}
+
+/* 채움 레이어: width만 JS로 늘림 */
+.star5-readonly .star5-fill{
+  position:absolute;
+  inset:0;
+  width:0%;
+  overflow:hidden;
+  z-index:2;
+  pointer-events:none;
+}
+
+/* 노란 별 */
+.star5-readonly .star5-fill .star5-icons svg{
+  fill:#f59e0b !important;
+}
+
+/* 혹시 클릭 overlay가 남아있으면 무력화 */
+.star5-readonly .star5-overlay{
+  display:none !important;
+}

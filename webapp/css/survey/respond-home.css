@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+/* view.css 토큰/기본 레이아웃을 그대로 쓰고,
+   여기서는 홈 그리드/카드만 담당 */
+
+/* ===== 2열 정사각형 그리드 ===== */
+.home-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px; /* 다른 페이지 카드 간격이랑 비슷하게 */
+}
+
+/* ===== 카드 ===== */
+.home-card{
+  aspect-ratio: 1 / 1;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  text-decoration: none;
+  color: var(--text);
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.home-card:hover{
+  transform: translateY(-4px);
+  border-color: var(--line2);
+  background: #f8fafc;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.06);
+}
+
+/* 아이콘 */
+.home-icon{
+  font-size: 42px;
+  margin-bottom: 14px;
+  line-height: 1;
+}
+
+/* 텍스트 */
+.home-title{
+  font-size: 16px;
+  font-weight: 900;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.home-desc{
+  font-size: 13px;
+  color: var(--muted2);
+}
+
+/* 카드 내부 글자색 강제 통일(좌우 다른 색 방지) */
+.home-card,
+.home-card *{
+  color: var(--text);
+}
+.home-card .home-desc{
+  color: var(--muted2);
+}
+
+/* 모바일 */
+@media (max-width:600px){
+  .home-grid{ grid-template-columns: 1fr; }
+}

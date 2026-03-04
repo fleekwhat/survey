@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class MemberVO {
 	
-	 private Long memberId;
+	 	private Long memberId;
 	    private String loginId;
 	    private String passwordHash;
 	    private String name;

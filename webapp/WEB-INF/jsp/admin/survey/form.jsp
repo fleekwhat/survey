@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Admin | Create Survey</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/survey/admin-form.css">
 </head>
 <body>
 	

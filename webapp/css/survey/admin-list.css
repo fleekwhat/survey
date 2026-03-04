@@ -1,0 +1,79 @@
+@charset "UTF-8";@charset "UTF-8";
+
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:12px;
+}
+
+.empty{
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:var(--r-lg);
+  padding:16px;
+  color:var(--muted);
+  font-weight:800;
+}
+
+/* 표 밀도 낮추기 */
+.tbl th{
+  white-space:nowrap;
+}
+
+.id{
+  color:var(--muted2);
+  font-weight:800;
+}
+
+.link{
+  color:var(--text);
+  text-decoration:none;
+  font-weight:900;
+}
+.link:hover{ text-decoration:underline; }
+
+/* 기간 */
+.period{
+  color:var(--muted2);
+  font-size:13px;
+}
+.sep{
+  margin:0 8px;
+  color:var(--line2);
+}
+
+/* actions: 버튼을 작고 정렬 */
+.actions{
+  white-space:nowrap;
+  display:flex;
+  gap:8px;
+  justify-content:flex-end;
+  align-items:center;
+}
+.inline{ display:inline; }
+
+.btn-sub{
+  background:#f1f5f9;
+  color:var(--text);
+}
+.btn-danger{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+/* 상태 컬럼 가운데 정렬 */
+.tbl th:nth-child(3),
+.tbl td:nth-child(3){
+  text-align: center;
+}
+
+/* 모바일: 기간 숨기고 제목 폭 확보 */
+@media (max-width:560px){
+  .tbl th:nth-child(4),
+  .tbl td:nth-child(4){
+    display:none;
+  }
+  .actions{ gap:6px; }
+}

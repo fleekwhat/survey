@@ -1,0 +1,215 @@
+@charset "UTF-8";
+
+/* 이 파일은 응답 수정 페이지 전용: 전역(:root/body/button) 절대 건드리지 말 것 */
+
+/* 레이아웃(해당 페이지에서만) */
+.page-respond-edit .wrap{
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 var(--pad-wrap-x);
+}
+
+.page-respond-edit .title{
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+/* meta */
+.page-respond-edit .survey-meta{
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 18px;
+  margin-bottom: 16px;
+}
+.page-respond-edit .survey-meta > div{
+  margin: 6px 0;
+  color: var(--text);
+}
+.page-respond-edit .survey-meta b{
+  color: var(--muted2);
+}
+
+/* qcard */
+.page-respond-edit .qcard{
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: var(--pad-card, 16px);
+}
+
+.page-respond-edit .qcard > p{
+  margin: 0 0 12px;
+  font-weight: 900;
+  font-size: 16px;
+}
+.page-respond-edit .qcard > p span{
+  font-weight: 800;
+  font-size: 12px;
+  color: var(--muted2);
+  margin-left: 6px;
+}
+
+/* inputs */
+.page-respond-edit .qcard textarea,
+.page-respond-edit .qcard input[type="text"],
+.page-respond-edit .qcard input[type="number"]{
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--line2);
+  border-radius: var(--r-md);
+  padding: 10px 12px;
+  outline: none;
+  background: #fff;
+  color: var(--text);
+}
+
+.page-respond-edit .qcard textarea{
+  min-height: 110px;
+  resize: vertical;
+}
+
+.page-respond-edit .qcard input[type="number"]{
+  width: 180px;
+}
+
+.page-respond-edit .qcard textarea:focus,
+.page-respond-edit .qcard input:focus{
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(17,24,39,0.12);
+}
+
+/* options */
+.page-respond-edit .qcard label{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.page-respond-edit .qcard input[type="radio"],
+.page-respond-edit .qcard input[type="checkbox"]{
+  width: 16px;
+  height: 16px;
+}
+
+/* hint */
+.page-respond-edit .qcard .hint{
+  margin-top: 10px;
+  color: var(--muted2);
+  font-size: 13px;
+}
+
+/* error */
+.page-respond-edit .qcard .error{
+  display: none;
+  margin-top: 10px;
+  color: #991b1b;
+  font-weight: 800;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.page-respond-edit .qcard hr{
+  border: 0;
+  border-top: 1px dashed var(--line);
+  margin: 14px 0 0;
+}
+
+/* submit buttons: 전역 button 금지, 이 영역만 */
+.page-respond-edit .survey-submit{
+  margin: 18px 0 40px;
+  display: flex;
+  gap: 10px;
+}
+
+.page-respond-edit .survey-submit button{
+  border: 0;
+  border-radius: var(--r-lg);
+  padding: 10px 14px;
+  font-weight: 800;
+  cursor: pointer;
+  background: #e2e8f0;
+  color: var(--text);
+}
+
+.page-respond-edit .survey-submit button:hover{ filter: brightness(0.98); }
+.page-respond-edit .survey-submit button:disabled{ opacity: .6; cursor: not-allowed; }
+
+.page-respond-edit .survey-submit button[type="submit"]{
+  background: var(--primary);
+  color: #fff;
+  padding: 12px 16px;
+}
+
+.page-respond-edit .btn-sub{
+  background: #f1f5f9;
+}
+
+/* STAR */
+.page-respond-edit .star5{
+  position: relative;
+  display: inline-block;
+  width: 125px;
+  height: 28px;
+  margin: 6px 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.page-respond-edit .star5-input{
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.page-respond-edit .star5-icons{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.page-respond-edit .star5-icons svg{
+  width: 24px;
+  height: 24px;
+  fill: var(--line);
+  display: block;
+  margin: 0;
+  padding: 0;
+  flex: 0 0 auto;
+}
+
+.page-respond-edit .star5-overlay{
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  background: transparent;
+}
+
+.page-respond-edit .star5-hit{
+  display: block;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.page-respond-edit .star-value{
+  margin-top: 6px;
+  color: var(--muted2);
+  font-size: 13px;
+}
+
+@media (max-width: 560px){
+  .page-respond-edit .wrap{ margin: 20px auto; }
+  .page-respond-edit .qcard > p{ font-size: 15px; }
+  .page-respond-edit .qcard input[type="number"]{ width: 100%; }
+}

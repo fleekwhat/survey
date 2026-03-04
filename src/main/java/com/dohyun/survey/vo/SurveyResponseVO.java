@@ -11,6 +11,7 @@ public class SurveyResponseVO {
     private String userAgent;     // 브라우저
     private String status;        // 상태 (TEMP, SUBMIT 등)
     private Date submittedAt;     // 제출시간
+    private Long memberId;
     
 	public Long getResponseId() {
 		return responseId;
@@ -54,4 +55,11 @@ public class SurveyResponseVO {
 	public void setSubmittedAt(Date submittedAt) {
 		this.submittedAt = submittedAt;
 	}
+	public Long getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(Long memberId) {
+		this.memberId = memberId;
+	}
+	
 }

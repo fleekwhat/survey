@@ -1,7 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <div class="error-box">
   <h1>403</h1>
   <p>해당 페이지에 접근할 권한이 없습니다.</p>
+  
+  <c:if test="${not empty msg}">
+    <p style="margin-top:12px; font-weight:700;">${msg}</p>
+  </c:if>
+  
   <a class="btn" href="${pageContext.request.contextPath}/respond/survey/main.do">메인으로 이동</a>
 </div>
 

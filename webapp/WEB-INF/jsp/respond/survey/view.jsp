@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Survey</title>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/view.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/survey/view.css">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
 	
 	  <div class="head">
 	    <div>
-	      <span class="badge">${mode}</span>
+	      <span class="badge">${fn:trim(mode)}</span>
 	      <span class="badge">${main.status}</span>
 	    </div>
 	    <h1 class="title">${fn:escapeXml(main.title)}</h1>
@@ -32,8 +32,8 @@
 	
 	  <!-- USER 모드일 때만 제출 폼 -->
 	  <c:choose>
-	    <c:when test="${mode eq 'USER'}">
-	      <form id="surveyAnswerForm" method="post" action="${pageContext.request.contextPath}/survey/submit.do">
+	    <c:when test="${fn:trim(mode) eq 'USER'}">
+	      <form id="surveyAnswerForm" method="post" action="${pageContext.request.contextPath}/respond/survey/submit.do">
 	        <input type="hidden" name="surveyId" value="${main.surveyId}" />
 	
 	        <c:forEach var="b" items="${survey.questions}" varStatus="st">
@@ -80,18 +80,43 @@
 	            </c:if>
 	
 	            <!-- STAR -->
-	            <c:if test="${q.questionType eq 'STAR'}">
-	              <div class="choices">
-	                <c:forEach begin="1" end="10" var="v">
-	                  <label class="choice">
-	                    <input type="radio" name="star_${q.questionId}" value="${v}">
-	                    <span>${v} (=${v/2}점)</span>
-	                  </label>
-	                </c:forEach>
-	              </div>
-	              <div class="hint">0.5점 단위 (1=0.5점 … 10=5.0점)</div>
-	            </c:if>
-	
+		            <c:if test="${q.questionType eq 'STAR'}">
+					  <div class="star5" data-qid="${q.questionId}">
+					    <!-- input 10개 -->
+					    <c:forEach begin="1" end="10" var="v">
+					      <input type="radio"
+					             class="star5-input"
+					             name="star_${q.questionId}"
+					             id="star_${q.questionId}_${v}"
+					             value="${v}" />
+					    </c:forEach>
+					
+					    <!-- 클릭 overlay: label 10개 -->
+					    <div class="star5-overlay">
+					      <c:forEach begin="1" end="10" var="v">
+					        <label class="star5-hit"
+					               for="star_${q.questionId}_${v}"
+					               title="${v/2}점"></label>
+					      </c:forEach>
+					    </div>
+					
+					    <!-- 보이는 별 5개 -->
+					    <div class="star5-icons" aria-hidden="true">
+					      <c:forEach begin="1" end="5" var="i">
+					        <svg viewBox="0 0 24 24">
+					          <path d="M12 17.27L18.18 21 16.54 13.97
+					                   22 9.24 14.81 8.63 12 2
+					                   9.19 8.63 2 9.24
+					                   7.46 13.97 5.82 21z"/>
+					        </svg>
+					      </c:forEach>
+					    </div>
+					  </div>
+					
+					  <div class="hint">0.5점 단위 (1=0.5점 … 10=5.0점)</div>
+					  <div class="star-value" id="starValue_${q.questionId}">선택: -</div>
+					</c:if>
+					
 	            <div class="error">이 질문을 확인하세요.</div>
 	          </div>
 	        </c:forEach>
@@ -141,17 +166,23 @@
 	            <div class="hint">최소 ${q.minSelect}개 ~ 최대 ${q.maxSelect}개 선택</div>
 	          </c:if>
 	
-	          <c:if test="${q.questionType eq 'STAR'}">
-	            <div class="choices">
-	              <c:forEach begin="1" end="10" var="v">
-	                <label class="choice">
-	                  <input type="radio" disabled>
-	                  <span>${v} (=${v/2}점)</span>
-	                </label>
-	              </c:forEach>
-	            </div>
-	          </c:if>
-	        </div>
+	          <!-- STAR 미리보기 -->
+	            <c:if test="${q.questionType eq 'STAR'}">
+				  <div class="star5 preview">
+				    <div class="star5-icons" aria-hidden="true">
+				      <c:forEach begin="1" end="5" var="i">
+				        <svg viewBox="0 0 24 24">
+				          <path d="M12 17.27L18.18 21 16.54 13.97
+				                   22 9.24 14.81 8.63 12 2
+				                   9.19 8.63 2 9.24
+				                   7.46 13.97 5.82 21z"/>
+				        </svg>
+				      </c:forEach>
+				    </div>
+				  </div>
+				  <div class="hint">0.5점 단위 (1=0.5점 … 10=5.0점)</div>
+				</c:if>
+		        </div>
 	      </c:forEach>
 	
 	      <div class="submit">
@@ -165,83 +196,132 @@
 	<script>
 		(function(){
 		  const form = document.getElementById('surveyAnswerForm');
-		  if(!form) return;
 		
-		  function showError(card, msg){
-		    const box = card.querySelector('.error');
-		    if(box){
-		      box.textContent = msg;
-		      box.style.display = 'block';
+		  // ===== 1) 제출 검증 =====
+		  if(form){
+		    function showError(card, msg){
+		      const box = card.querySelector('.error');
+		      if(box){ box.textContent = msg; box.style.display = 'block'; }
 		    }
+		    function clearError(card){
+		      const box = card.querySelector('.error');
+		      if(box) box.style.display = 'none';
+		    }
+		
+		    form.addEventListener('submit', (e) => {
+		   		
+		      let ok = true;
+		
+		      document.querySelectorAll('.qcard[data-qid]').forEach(card => {
+		        clearError(card);
+		
+		        const qid = card.dataset.qid;
+		        const type = card.dataset.qtype;
+		        const required = (card.dataset.required === '1');
+		        
+		
+		        if(type === 'TEXT'){
+		        	const qid = (card.dataset.qid || '').trim();
+		        	const type = (card.dataset.qtype || '').trim().toUpperCase();
+		        	const requiredRaw = (card.dataset.required || '').trim();
+		        	const required = (requiredRaw === '1' || requiredRaw.toLowerCase() === 'true');
+		          if(required && !v){ ok=false; showError(card, '필수 질문입니다.'); }
+		          
+		        }
+		
+		        if(type === 'SINGLE'){
+		          const checked = form.querySelector(`[name="single_${qid}"]:checked`);
+		          if(required && !checked){ ok=false; showError(card, '하나를 선택하세요.'); }
+		        }
+		
+		        if(type === 'MULTI'){
+		        	  const minRaw = card.dataset.min;
+		        	  const maxRaw = card.dataset.max;
+
+		        	  let min = parseInt(minRaw, 10);
+		        	  let max = parseInt(maxRaw, 10);
+
+		        	  if(isNaN(min)) min = 0;
+		        	  if(isNaN(max)) max = 9999;
+
+		        	  // boxes 정의
+		        	  const boxes = form.querySelectorAll(`[name="multi_${qid}"]:checked`);
+
+		        	  if(required && boxes.length === 0){
+		        	    ok = false;
+		        	    showError(card, '필수 질문입니다.');
+		        	    return;
+		        	  }
+
+		        	  if(boxes.length > 0){
+		        	    if(boxes.length < min){
+		        	      ok = false;
+		        	      showError(card, '최소 ' + min + '개 선택해야 합니다.');
+		        	    } else if(boxes.length > max){
+		        	      ok = false;
+		        	      showError(card, '최대 ' + max + '개까지만 선택 가능합니다.');
+		        	    }
+		        	  }
+		        	}
+		
+		        if(type === 'STAR'){
+		          const checked = form.querySelector(`[name="star_${qid}"]:checked`);
+		          if(required && !checked){ ok=false; showError(card, '별점을 선택하세요.'); }
+		        }
+		      });
+		
+		      if(!ok){ e.preventDefault(); alert('입력값을 확인하세요.'); }
+		    });
 		  }
-		  function clearError(card){
-		    const box = card.querySelector('.error');
-		    if(box) box.style.display = 'none';
-		  }
 		
-		  form.addEventListener('submit', (e) => {
-		    let ok = true;
+		  // ===== 2) 별점 UI 채색 =====
+		  document.querySelectorAll('.star5[data-qid]').forEach(box=>{
+		    const qid = box.dataset.qid;
+		    const out = document.getElementById('starValue_' + qid);
 		
-		    document.querySelectorAll('.qcard[data-qid]').forEach(card => {
-		      clearError(card);
+		    function paint(v){
+		      const stars = box.querySelectorAll('.star5-icons svg');
+		      const full = Math.floor(v / 2);
+		      const half = (v % 2 === 1);
 		
-		      const qid = card.dataset.qid;
-		      const type = card.dataset.qtype;
-		      const required = (card.dataset.required === '1');
+		      stars.forEach((s, i)=>{
+		        s.style.fill = '#e5e7eb';
+		        s.style.clipPath = 'none';
 		
-		      if(type === 'TEXT'){
-		        const v = form.querySelector(`[name="text_${qid}"]`).value.trim();
-		        if(required && !v){
-		          ok = false;
-		          showError(card, '필수 질문입니다.');
+		        if(i < full){
+		          s.style.fill = '#f59e0b';
+		        } else if(i === full && half){
+		          s.style.fill = '#f59e0b';
+		          s.style.clipPath = 'inset(0 50% 0 0)';
 		        }
-		      }
+		      });
 		
-		      if(type === 'SINGLE'){
-		        const checked = form.querySelector(`[name="single_${qid}"]:checked`);
-		        if(required && !checked){
-		          ok = false;
-		          showError(card, '하나를 선택하세요.');
-		        }
-		      }
+		      if(out) out.textContent = '선택: ' + (v/2).toFixed(1) + '점';
+		    }
 		
-		      if(type === 'MULTI'){
-		        const boxes = form.querySelectorAll(`.multi_${qid}:checked`);
-		        const min = parseInt(card.dataset.min || "0", 10);
-		        const max = parseInt(card.dataset.max || "9999", 10);
-		
-		        if(required && boxes.length === 0){
-		          ok = false;
-		          showError(card, '필수 질문입니다.');
-		          return;
-		        }
-		        if(boxes.length > 0){
-		          if(boxes.length < min){
-		            ok = false;
-		            showError(card, `최소 ${min}개 선택해야 합니다.`);
-		          } else if(boxes.length > max){
-		            ok = false;
-		            showError(card, `최대 ${max}개까지만 선택 가능합니다.`);
-		          }
-		        }
-		      }
-		
-		      if(type === 'STAR'){
-		        const checked = form.querySelector(`[name="star_${qid}"]:checked`);
-		        if(required && !checked){
-		          ok = false;
-		          showError(card, '별점을 선택하세요.');
-		        }
+		    box.addEventListener('change', (e)=>{
+		      if(e.target && e.target.classList.contains('star5-input')){
+		        paint(Number(e.target.value));
 		      }
 		    });
 		
-		    if(!ok){
-		      e.preventDefault();
-		      alert('입력값을 확인하세요.');
-		    }
+		    // hover 미리보기(원하면 유지, 싫으면 이 블록 삭제)
+		    box.querySelectorAll('.star5-hit').forEach((lab, idx)=>{
+		      lab.addEventListener('mouseenter', ()=> paint(idx + 1));
+		    });
+		    box.addEventListener('mouseleave', ()=>{
+		      const checked = box.querySelector('.star5-input:checked');
+		      if(checked) paint(Number(checked.value));
+		      else{
+		        const stars = box.querySelectorAll('.star5-icons svg');
+		        stars.forEach(s=>{ s.style.fill='#e5e7eb'; s.style.clipPath='none'; });
+		        if(out) out.textContent = '선택: -';
+		      }
+		    });
 		  });
 		})();
-	</script>
+		</script>
+	
 
 </body>
 </html>

@@ -10,7 +10,7 @@
   <meta charset="UTF-8">
   <title><tiles:getAsString name="title"/></title>
 
-  <link rel="stylesheet" href="${ctx}/css/navbar.css">
+  <link rel="stylesheet" href="${ctx}/css/common/navbar.css">
 </head>
 <body>
 

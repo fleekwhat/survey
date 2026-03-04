@@ -1,0 +1,244 @@
+@charset "UTF-8";
+
+@charset "UTF-8";
+
+/* edit 페이지 스코프에서 토큰을 확정 */
+.admin-form-scope{
+  --bg: #fff;
+  --text:#0f172a;
+  --muted:#475569;
+  --muted2:#64748b;
+
+  --line:#e5e7eb;      /* 얇은 구분선 */
+  --line2:#cbd5e1;     /* 조금 진한 테두리 */
+  --primary:#111827;
+
+  --r-lg:12px;
+  --r-md:10px;
+
+  --pad-wrap-x:16px;
+  --pad-card:16px;
+}
+
+.admin-form-scope #surveyForm{
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 var(--pad-wrap-x);
+}
+
+/* meta */
+.admin-form-scope #surveyForm .survey-meta{
+  background: var(--bg);
+  border: 1px solid var(--line2);
+  border-radius: var(--r-lg);
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 0 rgba(15,23,42,0.03);
+}
+
+.admin-form-scope #surveyForm .title{
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+/* action */
+.admin-form-scope #surveyForm .survey-actions{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 10px 0 14px;
+}
+
+.admin-form-scope #surveyForm button{
+  border: 0;
+  border-radius: var(--r-md);
+  padding: 10px 14px;
+  font-weight: 900;
+  cursor: pointer;
+  background: #e2e8f0;
+  color: var(--text);
+}
+
+.admin-form-scope #surveyForm .survey-submit{
+  margin: 18px 0 40px;
+  display: flex;
+  gap: 10px;
+}
+
+.admin-form-scope #surveyForm .survey-submit button[type="submit"]{
+  background: var(--primary);
+  color: #fff;
+  padding: 12px 16px;
+}
+
+/* list */
+.admin-form-scope #surveyForm .question-list{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* card: 외곽 구분 */
+.admin-form-scope #surveyForm .question-card{
+  background:#fff;
+  border:1px solid var(--line2);
+  border-radius:var(--r-lg);
+  padding: var(--pad-card);
+  box-shadow: 0 1px 0 rgba(15,23,42,0.03), 0 10px 24px rgba(15,23,42,0.06);
+}
+
+.admin-form-scope #surveyForm .question-card:hover{
+  border-color: var(--primary);
+  box-shadow: 0 1px 0 rgba(15,23,42,0.04),
+              0 14px 34px rgba(15,23,42,0.10);
+}
+
+/* header 라인 */
+.admin-form-scope #surveyForm .q-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding-bottom:10px;
+  margin-bottom:12px;
+  border-bottom:1px solid var(--line); /* 여기 이제 정상 적용됨 */
+}
+
+.admin-form-scope #surveyForm .q-tools{
+  display: flex;
+  gap: 6px;
+}
+
+.admin-form-scope #surveyForm .q-tools button{
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #f1f5f9;
+}
+
+.admin-form-scope #surveyForm .q-tools .q-del{
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* 핵심: 칸 구분(무조건 보이게) */
+.admin-form-scope #surveyForm .q-row{
+  margin-top:10px;
+  padding:10px 12px;
+  background:#f8fafc;
+  border:1px solid var(--line);        /* "칸" 테두리 */
+  border-radius: var(--r-md);
+}
+
+/* inline row도 동일하게 박스 처리 */
+.admin-form-scope #surveyForm .q-row-inline{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* input들은 row 안에서 폭 정리 */
+.admin-form-scope #surveyForm .q-row input[type="text"]{
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.admin-form-scope #surveyForm .choice-box{
+  margin-top:12px;
+  background:#f8fafc;
+  border:1px solid var(--line);
+  border-radius: var(--r-md);
+  padding:12px;
+}
+
+.admin-form-scope #surveyForm .choice-row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-top:8px;
+  padding:8px;
+  border-radius:10px;
+  background:#fff;
+  border:1px solid var(--line);        /* 모든 줄 테두리 */
+}
+
+.admin-form-scope #surveyForm .choice-row:nth-child(even){
+  background: #f9fbfd;
+}
+
+/* inputs */
+.admin-form-scope #surveyForm .question-card input[type="text"],
+.admin-form-scope #surveyForm .question-card input[type="number"],
+.admin-form-scope #surveyForm .question-card select,
+.admin-form-scope #surveyForm .question-card textarea{
+  border: 1px solid var(--line2);
+  border-radius: var(--r-md);
+  padding: 10px 12px;
+  outline: none;
+  background: #fff;
+  color: var(--text);
+}
+
+.admin-form-scope #surveyForm .question-card input:focus,
+.admin-form-scope #surveyForm .question-card select:focus,
+.admin-form-scope #surveyForm .question-card textarea:focus{
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(17,24,39,0.12);
+}
+
+/* ===== meta 강제 복구(제목/설명/시작/종료) ===== */
+.admin-form-scope #surveyForm .survey-meta{
+  display: block;
+  background: #fff;
+  border: 1px solid var(--line2);
+  border-radius: var(--r-lg);
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 0 rgba(15,23,42,0.03);
+}
+
+.admin-form-scope #surveyForm .survey-meta .title{
+  display: block;
+  margin: 0 0 12px;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--text);
+}
+
+.admin-form-scope #surveyForm .survey-meta label{
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--muted2);
+}
+
+.admin-form-scope #surveyForm .survey-meta input[type="text"],
+.admin-form-scope #surveyForm .survey-meta input[type="datetime-local"],
+.admin-form-scope #surveyForm .survey-meta textarea{
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--line2);
+  border-radius: var(--r-md);
+  padding: 10px 12px;
+  outline: none;
+  background: #fff;
+  color: var(--text);
+}
+
+.admin-form-scope #surveyForm .survey-meta textarea{
+  min-height: 90px;
+  resize: vertical;
+}
+
+.admin-form-scope #surveyForm .survey-meta input:focus,
+.admin-form-scope #surveyForm .survey-meta textarea:focus{
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(17,24,39,0.12);
+}
+
+@media (max-width: 560px){
+  .admin-form-scope #surveyForm .question-card input[type="number"]{ width: 100%; }
+}

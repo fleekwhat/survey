@@ -9,7 +9,7 @@
 
       <nav class="nav">
         <a class="nav-link" href="${pageContext.request.contextPath}/index.do">Home</a>
-        <a class="nav-link" href="${pageContext.request.contextPath}/respond/survey/main.do">설문조사</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/respond/survey/home.do">설문조사</a>
 
         <c:if test="${sessionScope.LOGIN_ROLE == 'ADMIN'}">
           <a class="nav-link admin-link" href="${pageContext.request.contextPath}/admin/survey/dashboard.do">관리자</a>
