@@ -1,51 +1,159 @@
 @charset "UTF-8";
 
-/* 응답 상세에서만 쓰는 보조 스타일 */
-.answer-row{
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
-  margin-top:10px;
+/* ========================================
+   Admin 응답 상세 (page scope)
+   tokens.css + ui.css + view.css 전제
+======================================== */
+
+/* 헤더 */
+.page-admin-response-view .arv-badges{
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
-.answer-text{
-  font-weight:700;
+/* 메타 카드 */
+.page-admin-response-view .arv-meta{
+  margin-bottom: 16px;
+}
+
+/* 메타 테이블은 “정보 테이블”이라 th/td 정렬을 목록 테이블과 다르게 */
+.page-admin-response-view .arv-meta-tbl th{
+  text-align: left;            /* ui.css 기본 center를 override */
+  background: #f8fafc;         /* 살짝 연하게 */
+  color: var(--muted2);
+  font-weight: 900;
+}
+
+.page-admin-response-view .arv-meta-tbl td{
+  text-align: left;
+}
+
+/* Q 카드 */
+.page-admin-response-view .arv-qcard{
+  padding: var(--pad-card, 16px);
+  margin: 12px 0;
+}
+
+.page-admin-response-view .arv-qhead{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.page-admin-response-view .arv-qname{
+  margin: 0;
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 1.25;
+  word-break: break-word;
+}
+
+/* 답변 row */
+.page-admin-response-view .arv-text{
+  font-weight: 700;     /* 기존 800 -> 700 */
   color: var(--text);
+  word-break: break-word;
 }
 
-.answer-box{
-  width:100%;
-  padding:10px;
-  border:1px solid var(--line2);
+.page-admin-response-view .arv-box{
+  font-weight: 400;     /* 박스 안 텍스트는 보통 400이 가장 읽기 좋음 */
+  color: var(--text);
+
+  flex: 1 1 auto;
+  min-width: 0;
+
+  padding: 10px 12px;
+  border: 1px solid var(--line2);
   border-radius: var(--r-md);
-  background:#fff;
-  white-space:pre-wrap;
-  word-break:break-word;
+  background: #fff;
+
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
-/* ===== STAR read-only fill layer ===== */
-/* 기존 .star5 / .star5-icons 그대로 사용 */
-.star5-readonly{
-  height: 24px;         /* 아이콘 높이에 맞춤 */
-  width: 125px;         /* 기존과 동일 */
+.page-admin-response-view .arv-hint{
+  color: var(--muted2);
+  font-size: 13px;
+  font-weight: 400;     /* 기존 800 -> 400(또는 600) */
 }
 
-/* 채움 레이어: width만 조절해서 별을 “채워 보이게” */
-.star5-fill{
-  position:absolute;
-  inset:0;
-  width:0%;             /* JS가 %로 채움 */
-  overflow:hidden;
-  z-index:2;
-  pointer-events:none;
+/* ========================================
+   STAR 5 (readonly) - view.css 톤/사이즈 맞춤
+   - base(빈 별) + fill(채운 별)
+   - overlay(클릭영역)는 관리자 상세에서 숨김
+======================================== */
+
+.page-admin-response-view .star5{
+  position: relative;
+  display: inline-block;
 }
 
-/* 채워진 별 색 */
-.star5-readonly .star5-fill .star5-icons svg{
+.page-admin-response-view .star5.star5-readonly{
+  width: 125px;
+  height: 28px;     /* view.css와 동일 */
+  line-height: 0;
+}
+
+/* 아이콘 줄 */
+.page-admin-response-view .star5 .star5-icons{
+  display: flex;
+  gap: 0;
+  height: 100%;
+  align-items: center;
+}
+
+/* 각 별 SVG (view.css: 24px) */
+.page-admin-response-view .star5 .star5-icons svg{
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  display: block;
+  stroke: none;
+  stroke-width: 0;
+}
+
+/* base(빈 별) */
+.page-admin-response-view .star5.star5-readonly > .star5-icons svg{
+  fill: var(--line); /* view.css와 동일 톤 */
+}
+
+/* fill layer */
+.page-admin-response-view .star5.star5-readonly .star5-fill{
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  overflow: hidden;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* filled(채운 별) */
+.page-admin-response-view .star5.star5-readonly .star5-fill .star5-icons svg{
   fill: #f59e0b;
 }
 
-/* overlay(클릭용)가 혹시 남아있으면 무력화 */
-.star5-readonly .star5-overlay{
-  display:none !important;
+/* 클릭 오버레이는 관리자 상세에서 사용 안 함 */
+.page-admin-response-view .star5.star5-readonly .star5-overlay{
+  display: none !important;
+}
+
+/* 모바일 */
+@media (max-width: 600px){
+  .page-admin-response-view .arv-qhead{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page-admin-response-view .arv-row{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page-admin-response-view .arv-hint{
+    margin-top: 4px;
+  }
 }

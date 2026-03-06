@@ -68,5 +68,4 @@ public class SurveyQuestionVO {
 		this.createdAt = createdAt;
 	}
     
-    
 }

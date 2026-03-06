@@ -6,19 +6,19 @@ import com.dohyun.survey.vo.SurveyChoiceVO;
 import com.dohyun.survey.vo.SurveyQuestionVO;
 
 public class QuestionBundleDTO {
-  private SurveyQuestionVO question;
-  private List<SurveyChoiceVO> choices;
-  // getter/setter
-  public SurveyQuestionVO getQuestion() {
-	return question;
-  }
-  public void setQuestion(SurveyQuestionVO question) {
-	this.question = question;
-  }
-  public List<SurveyChoiceVO> getChoices() {
-	return choices;
-  }
-  public void setChoices(List<SurveyChoiceVO> choices) {
-	this.choices = choices;
-  }
+	private SurveyQuestionVO question;
+	private List<SurveyChoiceVO> choices;
+	// getter/setter
+	public SurveyQuestionVO getQuestion() {
+		return question;
+	}
+	public void setQuestion(SurveyQuestionVO question) {
+		this.question = question;
+	}
+	public List<SurveyChoiceVO> getChoices() {
+		return choices;
+	}
+	public void setChoices(List<SurveyChoiceVO> choices) {
+		this.choices = choices;
+	}
 }

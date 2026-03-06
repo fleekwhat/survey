@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+html{
+  scrollbar-gutter: stable;
+}
+
+/* ===== Card ===== */
+.ui-card{
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+.ui-empty{
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 16px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+/* ===== Table ===== */
+.ui-tbl{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ui-tbl th{
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: .2px;
+  color: var(--muted2);
+  background: #f1f5f9;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.ui-tbl td{
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+.ui-tbl tr:last-child td{ border-bottom: 0; }
+.ui-tbl tr:hover td{ background: #f8fafc; }
+
+/* ===== Badge ===== */
+.ui-badge{
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  border: 1px solid var(--line);
+}
+
+/* ===== Buttons ===== */
+.ui-btn{
+  border: 0;
+  border-radius: var(--r-md);
+  padding: 8px 10px;
+  font-weight: 900;
+  cursor: pointer;
+  background: #e2e8f0;
+  color: var(--text);
+  text-decoration: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ui-btn:hover{ filter: brightness(0.98); }
+
+.ui-btn-sm{
+  padding: 7px 10px;
+  font-size: 13px;
+}
+
+.ui-btn-primary{
+  background: var(--primary);
+  color: #fff;
+}
+
+/* ===== Danger Button ===== */
+.ui-btn-danger{
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.ui-btn-danger:hover{
+  background: #fecaca;
+}
+
+/* ===== Layout helpers ===== */
+.page-container{
+  margin-top: 10px;
+}
+
+.wrap{
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--pad-wrap-x, 18px);
+}
+
+/* ===== Form controls (common) ===== */
+.ui-textarea{
+  width: 100%;
+  min-height: 90px;
+  padding: 10px 12px;
+  border: 1px solid var(--line2);
+  border-radius: var(--r-md);
+  resize: vertical;
+  outline: none;
+  background: #fff;
+  color: var(--text);
+}
+
+.ui-textarea:focus{
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(17,24,39,0.12);
+}
+
+

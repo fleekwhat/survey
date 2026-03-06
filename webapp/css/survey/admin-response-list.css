@@ -1,74 +1,91 @@
-@charset "UTF-8";@charset "UTF-8";
+@charset "UTF-8";
 
-/* 상단 */
-.top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:12px;
-}
+/* ========================================
+   Admin 응답 목록 (ui.css 전제)
+   - 다른 페이지 오염 방지: page scope
+======================================== */
 
-.sub{
-  font-size:13px;
-  color:var(--muted2);
-  font-weight:700;
-}
-
-/* empty */
-.empty{
-  background:var(--bg);
-  border:1px solid var(--line);
-  border-radius:var(--r-lg);
-  padding:16px;
-  color:var(--muted);
-  font-weight:800;
+.page-admin-response-list .arl-head-top{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-/* 링크 */
-.link{
-  font-weight:900;
-  color:var(--text);
-  text-decoration:none;
-}
-.link:hover{
-  text-decoration:underline;
-}
-
-/* 회원 영역 */
-.member{
-  display:flex;
-  gap:8px;
-  align-items:center;
-}
-.login{
-  font-weight:800;
-}
-.name{
-  font-size:13px;
-  color:var(--muted2);
-}
-
-/* 가운데 정렬 */
-.center{
-  text-align:center;
-}
-
-/* 날짜 */
-.date{
-  font-size:13px;
-  color:var(--muted2);
-}
-
-/* 응답ID 텍스트 느낌 */
-.rid{
+.page-admin-response-list .arl-sub{
+  margin-top: 6px;
+  font-size: 13px;
   color: var(--muted2);
   font-weight: 800;
 }
 
-/* 모바일 */
+.page-admin-response-list .arl-head-actions{
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 테이블 카드 라운드 유지 */
+.page-admin-response-list .is-clip{
+  overflow: hidden;
+}
+
+/* 회원 영역 */
+.page-admin-response-list .member{
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.page-admin-response-list .login{
+  font-weight: 900;
+  color: var(--text);
+}
+
+.page-admin-response-list .name{
+  font-size: 13px;
+  color: var(--muted2);
+  font-weight: 800;
+}
+
+/* 가운데 정렬 */
+.page-admin-response-list .center{
+  text-align: center;
+}
+
+/* 날짜 */
+.page-admin-response-list .date{
+  font-size: 13px;
+  color: var(--muted2);
+  font-weight: 800;
+}
+
+/* 응답ID */
+.page-admin-response-list .rid{
+  color: var(--muted2);
+  font-weight: 900;
+  text-align: center;
+}
+
+
+
+/* 모바일: 제출일 컬럼 숨김 */
 @media (max-width:560px){
-  .tbl th:nth-child(4),
-  .tbl td:nth-child(4){
-    display:none;
+  .page-admin-response-list .col-submitted-at{
+    display: none;
+  }
+}
+
+/* 좁은 화면에서 테이블 찌그러짐 방지: 가로 스크롤 */
+@media (max-width: 720px){
+  .page-admin-response-list .is-clip{
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .page-admin-response-list .ui-tbl{
+    min-width: 720px;
   }
 }

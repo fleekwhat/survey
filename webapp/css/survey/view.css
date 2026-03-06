@@ -1,74 +1,41 @@
 @charset "UTF-8";
 
-/* ===== Design tokens ===== */
-:root{
-  --bg: #fff;
-  --text: #0f172a;
-  --muted: #475569;
-  --muted2: #64748b;
-  --line: #e5e7eb;
-  --line2: #cbd5e1;
-  --primary: #111827;
-  --danger: #ef4444;
-
-  --r-lg: 12px;
-  --r-md: 10px;
-
-  --pad-wrap-x: 16px;
-  --pad-card: 16px;
-}
-
-/* ===== Layout ===== */
-.wrap{
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 0 var(--pad-wrap-x);
-  font-family: "맑은 고딕", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color: var(--text);
-}
-
-.head,
-.qcard{
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-}
-
-.head{
+/* view.css는 전역 로드되므로 "view 페이지에서만" 먹도록 스코프 강제 */
+.page-survey-view .sv-head{
   padding: 18px;
   margin-bottom: 16px;
 }
 
-.qcard{
+.page-survey-view .qcard{
   padding: var(--pad-card);
   margin: 12px 0;
 }
 
-/* ===== Typography ===== */
-.title{
+/* ===== Typography (view page only) ===== */
+.page-survey-view .sv-view-title{
   font-size: 22px;
   font-weight: 800;
   margin: 0 0 8px;
 }
 
-.desc{
+.page-survey-view .sv-view-desc{
   margin: 0;
   color: var(--muted);
   white-space: pre-wrap;
 }
 
-.meta{
+.page-survey-view .sv-view-meta{
   margin-top: 10px;
   color: var(--muted2);
   font-size: 13px;
 }
 
-.qname{
+.page-survey-view .qname{
   font-weight: 800;
   margin: 0 0 10px;
 }
 
-.req{
+.page-survey-view .req{
   display: inline-block;
   margin-left: 8px;
   font-size: 12px;
@@ -76,83 +43,40 @@
 }
 
 /* ===== Controls ===== */
-.choices{
+.page-survey-view .choices{
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.choice{
+.page-survey-view .choice{
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* 전역 textarea 말고 wrap 안으로 스코프 */
-.wrap textarea{
-  width: 100%;
-  min-height: 90px;
-  padding: 10px;
-  border: 1px solid var(--line2);
-  border-radius: var(--r-md);
-  resize: vertical;
-  outline: none;
+/* submit 영역만 */
+.page-survey-view .sv-submit{
+  margin: 18px 0;
 }
 
-.wrap textarea:focus{
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(17,24,39,0.12);
-}
-
-/* 버튼 */
-.submit{ margin: 18px 0; }
-
-.btn{
-  border: 0;
-  border-radius: var(--r-lg);
-  padding: 12px 16px;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-.btn-primary{
-  background: var(--primary);
-  color: #fff;
-}
-
-.btn:disabled{
-  opacity: .6;
-  cursor: not-allowed;
-}
-
-/* 뱃지/힌트/에러 */
-.badge{
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: #f1f5f9;
-  color: var(--text);
-  font-size: 12px;
-  margin-right: 6px;
-}
-
-.hint{
+/* hint / error */
+.page-survey-view .hint{
   color: var(--muted2);
   font-size: 13px;
   margin-top: 8px;
 }
 
-/* display:none 대신 상태 클래스로 토글하는게 유지보수 좋음 */
-.error{
+.page-survey-view .error{
   color: var(--danger);
   font-size: 13px;
   margin-top: 8px;
   display: none;
 }
-.error.is-show{ display: block; }
+.page-survey-view .error.is-show{ display: block; }
 
 /* ===== STAR 5개 표시 + 10칸(반칸) 클릭 ===== */
-.star5{
+.page-survey-view .star5{
   position: relative;
   display: inline-block;
   width: 125px;
@@ -161,50 +85,48 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* input 숨김(접근성 유지하려면 display:none 대신 아래 방식 추천)
-   지금 구조가 label 클릭 기반이면 display:none도 동작은 함 */
-.star5-input{
+.page-survey-view .star5-input{
   position: absolute;
   opacity: 0;
-  pointer-events: none;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
 }
 
-/* 보이는 별 (배경 레이어) */
-.star5-icons{
+.page-survey-view .star5-icons{
   position: absolute;
   inset: 0;
   display: flex;
-  justify-content: flex-start !important;
-  gap: 0 !important;
+  justify-content: flex-start;
+  gap: 0;
   align-items: center;
   z-index: 1;
   pointer-events: none;
 }
 
-.star5-icons svg{
+.page-survey-view .star5-icons svg{
   width: 24px;
   height: 24px;
   fill: var(--line);
   display: block;
-  margin: 0 !important;
-  padding: 0 !important;
   flex: 0 0 auto;
 }
 
-/* 클릭 overlay (10칸) */
-.star5-overlay{
+.page-survey-view .star5-overlay{
   position: absolute;
   inset: 0;
   z-index: 3;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   background: transparent;
+  pointer-events: auto;
 }
 
-.star5-hit{
+.page-survey-view .star5-hit{
   display: block;
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
+  pointer-events: auto;
 }
-

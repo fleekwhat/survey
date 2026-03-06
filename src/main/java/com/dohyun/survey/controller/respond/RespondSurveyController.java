@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.dohyun.survey.common.BreadcrumbHelper;
+import com.dohyun.survey.dto.Breadcrumb;
 import com.dohyun.survey.dto.MyResponseDTO;
 import com.dohyun.survey.dto.SurveyEditFormDTO;
 import com.dohyun.survey.dto.SurveyViewDTO;
@@ -42,7 +44,11 @@ public class RespondSurveyController {
 	private SurveyMapper surveyMapper;
 	
 	@RequestMapping("/home.do")
-	public String main() {
+	public String main(HttpServletRequest request, Model model) {
+		
+		BreadcrumbHelper.set(request, model, 
+				new Breadcrumb("설문조사", null));
+		
 		return "respond/survey/home"; // tiles.xml definition name
 	}
 	
@@ -50,12 +56,18 @@ public class RespondSurveyController {
 	// ACTIVE 권한체크
 	
 	@GetMapping("/view.do")
-	public String view(@RequestParam("surveyId") long surveyId, Model model, HttpSession session) {
+	public String view(@RequestParam("surveyId") long surveyId, Model model, HttpSession session, HttpServletRequest request) {
 	    MemberVO member = (MemberVO) session.getAttribute("LOGIN_MEMBER");
 	    SurveyViewDTO survey = surveyService.getSurveyViewForUser(surveyId, member);
 
 	    model.addAttribute("survey", survey);
 	    model.addAttribute("mode", "USER");
+	    
+	    BreadcrumbHelper.respond(request, model, 
+				new Breadcrumb("진행중 설문", "/respond/survey/list.do"),
+				new Breadcrumb("설문 참여", null)
+				);
+	    
 	    return "respond/survey/view";
 	}
 	
@@ -63,9 +75,7 @@ public class RespondSurveyController {
 	public String submit(@RequestParam long surveyId, HttpServletRequest request) {
 
 	    MemberVO member = (MemberVO) request.getSession().getAttribute("LOGIN_MEMBER");
-	    if (member == null) {
-	        return "redirect:/auth/member/login_form.do";
-	    }
+
 
 	    surveyService.submitUserResponse(surveyId, member, request);
 
@@ -80,9 +90,14 @@ public class RespondSurveyController {
 
 
 	@GetMapping("/list.do")
-    public String list(Model model) {
+    public String list(HttpServletRequest request, Model model) {
         List<SurveyMainVO> list = surveyService.getActiveSurveyList();
         model.addAttribute("list", list);
+        
+        BreadcrumbHelper.respond(request, model, 
+				new Breadcrumb("진행중 설문", null));
+		
+        
         return "respond/survey/list"; // 
     }
 	
@@ -90,14 +105,15 @@ public class RespondSurveyController {
 	public String myResponses(HttpServletRequest request, Model model) {
 
 		 MemberVO member = (MemberVO) request.getSession().getAttribute("LOGIN_MEMBER");
-		    if (member == null) {
-		        return "redirect:/auth/member/login_form.do";
-		    }
+
 
 		    List<MyResponseDTO> list =
 		            surveyMapper.selectMyResponses(member.getMemberId());
 
 		    model.addAttribute("list", list);
+		    
+		    BreadcrumbHelper.respond(request, model, 
+					new Breadcrumb("내가 제출한 설문", null));
 
 		    return "respond/survey/my_response";
 	}
@@ -105,25 +121,36 @@ public class RespondSurveyController {
 	@GetMapping("/response_view.do")
 	public String responseView(@RequestParam("responseId") long responseId,
 	                           Model model,
-	                           HttpSession session) {
+	                           HttpSession session,
+	                           HttpServletRequest request) {
 
 	    MemberVO member = (MemberVO) session.getAttribute("LOGIN_MEMBER");
-	    if (member == null) return "redirect:/auth/member/login_form.do";
+
 
 	    surveyService.loadMyResponseDetail(responseId, member, model);
+	    
+	    BreadcrumbHelper.respond(request, model, 
+				new Breadcrumb("내가 제출한 설문", "/respond/survey/my_response.do"),
+				new Breadcrumb("내 응답 상세", null)
+				);
 
 	    return "respond/survey/response_view";
 	}
 	
 	@GetMapping("/edit.do")
-	public String edit(@RequestParam long surveyId, Model model, HttpSession session) {
+	public String edit(@RequestParam long surveyId, Model model, HttpSession session, HttpServletRequest request) {
 	  MemberVO member = (MemberVO) session.getAttribute("LOGIN_MEMBER");
-	  if (member == null) return "redirect:/auth/member/login_form.do";
 
 	  Long memberId = member.getMemberId(); 
 	  SurveyEditFormDTO dto = surveyService.getEditFormForUser(surveyId, memberId);
 
 	  model.addAttribute("survey", dto);
+	  
+	  BreadcrumbHelper.respond(request, model, 
+				new Breadcrumb("내가 제출한 설문", "/respond/survey/my_response.do"),
+				new Breadcrumb("응답 수정", null)
+				);
+	  
 	  return "respond/survey/edit";
 	}
 
@@ -132,7 +159,6 @@ public class RespondSurveyController {
 	                     HttpServletRequest request,
 	                     HttpSession session) {
 	  MemberVO member = (MemberVO) session.getAttribute("LOGIN_MEMBER");
-	  if (member == null) return "redirect:/auth/member/login_form.do";
 
 	  Long memberId = member.getMemberId();
 	  surveyService.updateUserResponse(surveyId, memberId, request.getParameterMap());
@@ -144,7 +170,6 @@ public class RespondSurveyController {
 	public String delete(@RequestParam long responseId, HttpSession session) {
 
 	  MemberVO member = (MemberVO) session.getAttribute("LOGIN_MEMBER");
-	  if (member == null) return "redirect:/auth/member/login_form.do";
 
 	  surveyService.deleteMyResponse(responseId, member.getMemberId());
 

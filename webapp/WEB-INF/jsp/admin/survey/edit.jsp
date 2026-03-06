@@ -3,18 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Admin | Edit Survey</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/survey/admin-edit.css">
-</head>
-<body>
-
 <c:set var="main" value="${survey.main}" />
 
-<!-- datetime-local value용 문자열 미리 만들어두기 -->
 <c:set var="startAtValue" value="" />
 <c:set var="endAtValue" value="" />
 
@@ -26,42 +16,48 @@
   <fmt:formatDate value="${main.endAt}" pattern="yyyy-MM-dd'T'HH:mm" var="endAtValue"/>
 </c:if>
 
-<div class="admin-form-scope">
-	<form id="surveyForm" method="post" action="${pageContext.request.contextPath}/admin/survey/update.do">
-	  <input type="hidden" name="surveyId" value="${main.surveyId}">
-	  <input type="hidden" name="payload" id="payload">
-	
-	  <!-- ===== Meta card ===== -->
-	  <div class="survey-meta">
-	    <h1 class="title">설문 수정</h1>
-	
-	    <label for="title">제목</label>
-	    <input type="text" name="title" id="title" required value="${fn:escapeXml(main.title)}">
-	
-	    <label for="description">설명</label>
-	    <textarea name="description" id="description" rows="4">${fn:escapeXml(main.description)}</textarea>
-	
-	    <label for="startAt">시작일시</label>
-	    <input type="datetime-local" name="startAt" id="startAt" value="${startAtValue}">
-	
-	    <label for="endAt">종료일시</label>
-	    <input type="datetime-local" name="endAt" id="endAt" value="${endAtValue}">
-	  </div>
-	
-	  <!-- ===== Action bar ===== -->
-	  <div class="survey-actions">
-	    <button type="button" id="addQuestion">질문 추가</button>
-	  </div>
-	
-	  <!-- ===== Question list ===== -->
-	  <div id="questionList" class="question-list"></div>
-	
-	  <!-- ===== Submit area ===== -->
-	  <div class="survey-submit">
-	    <button type="submit">저장</button>
-	    <button type="button" onclick="location.href='${pageContext.request.contextPath}/admin/survey/list.do'">목록</button>
-	  </div>
-	</form>
+<div class="page-admin-survey-edit">
+  <form id="surveyForm" method="post" action="${pageContext.request.contextPath}/admin/survey/update.do">
+    <input type="hidden" name="surveyId" value="${main.surveyId}">
+    <input type="hidden" name="payload" id="payload">
+
+    <!-- Meta -->
+    <div class="ui-card survey-meta">
+      <h1 class="title">설문 수정</h1>
+
+      <label class="meta-label" for="title">제목</label>
+      <input type="text" name="title" id="title" required value="${fn:escapeXml(main.title)}">
+
+      <label class="meta-label" for="description">설명</label>
+      <textarea name="description" id="description" rows="4">${fn:escapeXml(main.description)}</textarea>
+
+      <div class="meta-grid">
+        <div>
+          <label class="meta-label" for="startAt">시작일시</label>
+          <input type="datetime-local" name="startAt" id="startAt" value="${startAtValue}">
+        </div>
+
+        <div>
+          <label class="meta-label" for="endAt">종료일시</label>
+          <input type="datetime-local" name="endAt" id="endAt" value="${endAtValue}">
+        </div>
+      </div>
+    </div>
+
+    <!-- Action -->
+    <div class="survey-actions">
+      <button type="button" id="addQuestion" class="ui-btn ui-btn-sm">질문 추가</button>
+    </div>
+
+    <!-- List -->
+    <div id="questionList" class="question-list"></div>
+
+    <!-- Submit -->
+    <div class="survey-submit">
+      <button type="button" class="ui-btn" onclick="location.href='${pageContext.request.contextPath}/admin/survey/list.do'">목록</button>
+      <button type="submit" class="ui-btn ui-btn-primary">저장</button>
+    </div>
+  </form>
 </div>
 
 <script>
@@ -72,7 +68,6 @@
 
   const TYPE = { TEXT:'TEXT', SINGLE:'SINGLE', MULTI:'MULTI', STAR:'STAR' };
 
-  // HTML escape된 문자열을 JS에서 원래 문자열로 복원
   function htmlDecode(s){
     if(s == null) return '';
     const ta = document.createElement('textarea');
@@ -109,7 +104,6 @@
     }
   }
 
-  // ---------- DOM helpers ----------
   function el(tag, attrs, ...children){
     const node = document.createElement(tag);
     if (attrs) {
@@ -137,35 +131,32 @@
     return o;
   }
 
-  // ---------- render ----------
   function render(){
     qList.innerHTML = '';
 
     questions.forEach((q, idx) => {
       const showChoices = (q.type === TYPE.SINGLE || q.type === TYPE.MULTI);
       const showMultiLimit = (q.type === TYPE.MULTI);
+      const showStarHint = (q.type === TYPE.STAR);
 
-      const card = el('div', { class:'question-card', dataset:{ id: q.id } });
+      const card = el('div', { class:'ui-card question-card', dataset:{ id: q.id } });
 
-      // header
       const head = el('div', { class:'q-head' },
         el('div', { class:'q-title', text: 'Q' + (idx + 1) }),
         el('div', { class:'q-tools' },
-          el('button', { type:'button', class:'q-up', text:'▲' }),
-          el('button', { type:'button', class:'q-down', text:'▼' }),
-          el('button', { type:'button', class:'q-del', text:'삭제' })
+          el('button', { type:'button', class:'ui-btn ui-btn-sm q-up', text:'▲' }),
+          el('button', { type:'button', class:'ui-btn ui-btn-sm q-down', text:'▼' }),
+          el('button', { type:'button', class:'ui-btn ui-btn-sm ui-btn-danger q-del', text:'삭제' })
         )
       );
       card.appendChild(head);
 
-      // 질문 텍스트
       card.appendChild(
         el('div', { class:'q-row' },
           el('input', { type:'text', class:'q-text', placeholder:'질문 내용', value: q.questionText })
         )
       );
 
-      // type select
       const select = el('select', { class:'q-type' },
         option(TYPE.TEXT, '주관식'),
         option(TYPE.SINGLE, '객관식(단일)'),
@@ -174,7 +165,6 @@
       );
       select.value = q.type;
 
-      // required
       const reqLabel = el('label', { class:'q-req' },
         el('input', { type:'checkbox', class:'q-required' }),
         ' 필수'
@@ -183,53 +173,55 @@
 
       card.appendChild(
         el('div', { class:'q-row q-row-inline' },
-          el('span', { class:'q-hint-inline', text:'유형' }),
+          el('label', { class:'q-label', text:'유형' }),
           select,
           reqLabel
         )
       );
 
-      // MULTI min/max
+      if (showStarHint) {
+        card.appendChild(
+          el('div', { class:'q-hint', text:'별점은 0.5점 단위(총 10단계)로 저장됩니다. (1=0.5점 … 10=5.0점)' })
+        );
+      }
+
       if (showMultiLimit) {
         const minInput = el('input', { type:'number', class:'q-min', min:'1', value: (q.minSelect ?? 1) });
         const maxInput = el('input', { type:'number', class:'q-max', min:'1', value: (q.maxSelect ?? q.choices.length) });
 
         card.appendChild(
           el('div', { class:'q-row q-row-inline' },
-            el('span', { class:'q-hint-inline', text:'최소' }),
+            el('label', { class:'q-label', text:'최소 선택' }),
             minInput,
-            el('span', { class:'q-hint-inline', text:'최대' }),
+            el('label', { class:'q-label', text:'최대 선택' }),
             maxInput,
-            el('span', { class:'q-hint-inline', text:'(선택지 개수 이하)' })
+            el('span', { class:'q-hint-inline', text:'※ 선택지 개수 이하' })
           )
         );
       }
 
-      // choices
       if (showChoices) {
         const box = el('div', { class:'choice-box' });
 
         box.appendChild(
           el('div', { class:'choice-head' },
-            el('span', { text:'선택지' }),
-            el('button', { type:'button', class:'c-add', text:'선택지 추가' })
+            el('div', { class:'choice-title', text:'선택지' }),
+            el('button', { type:'button', class:'ui-btn ui-btn-sm c-add', text:'선택지 추가' })
           )
         );
 
         q.choices.forEach((c, cidx) => {
           const input = el('input', { type:'text', class:'c-text', placeholder:'선택지', value: c.text, dataset:{ cidx } });
-          const del = el('button', { type:'button', class:'c-del', text:'삭제', dataset:{ cidx } });
+          const del = el('button', { type:'button', class:'ui-btn ui-btn-sm ui-btn-danger c-del', text:'삭제', dataset:{ cidx } });
           box.appendChild(el('div', { class:'choice-row' }, input, del));
         });
 
         card.appendChild(box);
       } else {
-        // 힌트(선택지 없는 타입)
         if(q.type === TYPE.TEXT){
           card.appendChild(el('div', { class:'q-hint', text:'주관식 질문입니다.' }));
-        } else if(q.type === TYPE.STAR){
-          card.appendChild(el('div', { class:'q-hint', text:'별점은 0.5 단위(최대 5점)로 응답됩니다.' }));
         }
+        
       }
 
       qList.appendChild(card);
@@ -239,7 +231,7 @@
   }
 
   function bindEvents(){
-    qList.querySelectorAll('div[data-id]').forEach(card => {
+    qList.querySelectorAll('.question-card').forEach(card => {
       const id = Number(card.dataset.id);
       const q = questions.find(x => x.id === id);
       if (!q) return;
@@ -307,7 +299,6 @@
     render();
   }
 
-  // ===== 초기 데이터 주입 =====
   const initial = [
     <c:forEach var="b" items="${survey.questions}" varStatus="st">
       {
@@ -355,7 +346,6 @@
     render();
   };
 
-  // ===== 제출 전 payload 생성 =====
   form.addEventListener('submit', (e) => {
     const title = document.getElementById('title').value.trim();
     if(!title){ alert('제목은 필수'); e.preventDefault(); return; }
@@ -409,6 +399,3 @@
   });
 })();
 </script>
-
-</body>
-</html>

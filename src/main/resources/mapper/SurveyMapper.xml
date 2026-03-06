@@ -212,20 +212,33 @@
 	
 	<select id="selectResponseItemsByResponseId" parameterType="long" resultType="map">
 	  SELECT
-	    i.response_id,
-	    i.question_id,
-	    q.question_text,
-	    q.question_type,
-	    i.choice_id,
-	    c.choice_text,
-	    i.answer_text,
-	    i.answer_number,
-	    i.created_at
+	    i.response_id                       AS response_id,
+	    i.question_id                       AS question_id,
+	    q.question_text                     AS question_text,
+	    q.question_type                     AS question_type,
+	
+	    /* 멀티/싱글 선택지: 질문 단위로 합치기 */
+	    GROUP_CONCAT(c.choice_text ORDER BY c.display_order SEPARATOR ', ') AS choice_text,
+	
+	    /* TEXT */
+	    MAX(i.answer_text)                  AS answer_text,
+	
+	    /* STAR/NUMBER */
+	    MAX(i.answer_number)                AS answer_number,
+	
+	    /* created_at은 대표값 하나만 */
+	    MAX(i.created_at)                   AS created_at
+	
 	  FROM survey_response_item i
 	  JOIN survey_question q ON q.question_id = i.question_id
 	  LEFT JOIN survey_choice c ON c.choice_id = i.choice_id
 	  WHERE i.response_id = #{responseId}
-	  ORDER BY q.display_order ASC, i.choice_id ASC
+	
+	  GROUP BY
+	    i.response_id, i.question_id, q.question_text, q.question_type
+	
+	  ORDER BY
+	    q.display_order ASC, i.question_id ASC
 	</select>
 	
 	<select id="selectResponsesForAdminBySurvey" parameterType="long" resultType="map">
@@ -245,15 +258,15 @@
 	
 	<select id="selectResponseMetaForAdmin" parameterType="long" resultType="map">
 	  SELECT
-	    r.response_id,
-	    r.survey_id,
-	    r.member_id,
-	    mb.login_id,
-	    mb.name,
-	    r.ip_addr,
-	    r.user_agent,
-	    r.status,
-	    r.submitted_at
+	    r.response_id  AS responseId,
+	    r.survey_id    AS surveyId,
+	    r.member_id    AS memberId,
+	    mb.login_id    AS loginId,
+	    mb.name        AS name,
+	    r.ip_addr      AS ipAddr,
+	    r.user_agent   AS userAgent,
+	    r.status       AS status,
+	    r.submitted_at AS submittedAt
 	  FROM survey_response r
 	  JOIN member mb ON mb.member_id = r.member_id
 	  WHERE r.response_id = #{responseId}

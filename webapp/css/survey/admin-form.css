@@ -1,43 +1,21 @@
 @charset "UTF-8";
 
-/* view.css 토큰이 없다면 최소 동작용 */
-:root{
-  --bg:#fff;
-  --text:#0f172a;
-  --muted:#475569;
-  --muted2:#64748b;
-  --line:#e5e7eb;
-  --line2:#cbd5e1;
-  --primary:#111827;
-
-  --r-lg:12px;
-  --r-md:10px;
-
-  --pad-wrap-x:16px;
-  --pad-card:16px;
-}
-
-/* 컨테이너 */
-#surveyForm{
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 0 var(--pad-wrap-x);
-  font-family: "맑은 고딕", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color: var(--text);
-}
-
-/* meta */
-#surveyForm .survey-meta{
-  background: var(--bg);
-  border: 1px solid var(--line2);
-  border-radius: var(--r-lg);
+/* meta card */
+.page-admin-survey-form #surveyForm .survey-meta{
   padding: 18px;
   margin-bottom: 16px;
+  border-color: var(--line2);
   box-shadow: 0 1px 0 rgba(15,23,42,0.03);
 }
 
-#surveyForm .survey-meta label{
-  display:block;
+.page-admin-survey-form #surveyForm .survey-meta .title{
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.page-admin-survey-form #surveyForm .meta-label{
+  display: block;
   margin-top: 12px;
   margin-bottom: 6px;
   font-size: 13px;
@@ -45,114 +23,103 @@
   font-weight: 800;
 }
 
-#surveyForm .survey-meta input[type="text"],
-#surveyForm .survey-meta input[type="datetime-local"],
-#surveyForm .survey-meta textarea{
-  width:100%;
-  box-sizing:border-box;
-  border:1px solid var(--line2);
+.page-admin-survey-form #surveyForm .meta-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+/* inputs */
+.page-admin-survey-form #surveyForm input[type="text"],
+.page-admin-survey-form #surveyForm input[type="datetime-local"],
+.page-admin-survey-form #surveyForm textarea{
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--line2);
   border-radius: var(--r-md);
   padding: 10px 12px;
   outline: none;
-  background:#fff;
+  background: #fff;
   color: var(--text);
 }
 
-#surveyForm .survey-meta textarea{
+.page-admin-survey-form #surveyForm textarea{
   min-height: 90px;
   resize: vertical;
 }
 
-#surveyForm .survey-meta input:focus,
-#surveyForm .survey-meta textarea:focus{
+.page-admin-survey-form #surveyForm input:focus,
+.page-admin-survey-form #surveyForm textarea:focus,
+.page-admin-survey-form #surveyForm select:focus{
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(17,24,39,0.12);
 }
 
 /* actions */
-#surveyForm .survey-actions{
-  display:flex;
-  gap:10px;
-  align-items:center;
+.page-admin-survey-form #surveyForm .survey-actions{
+  display: flex;
+  gap: 10px;
+  align-items: center;
   margin: 10px 0 14px;
 }
 
-#surveyForm button{
-  border: 0;
-  border-radius: var(--r-md);
-  padding: 10px 14px;
-  font-weight: 900;
-  cursor: pointer;
-  background: #e2e8f0;
-  color: var(--text);
-}
-#surveyForm button:hover{ filter: brightness(0.98); }
-
 /* submit */
-#surveyForm .survey-submit{
+.page-admin-survey-form #surveyForm .survey-submit{
   margin: 18px 0 40px;
-}
-#surveyForm .survey-submit button[type="submit"]{
-  background: var(--primary);
-  color:#fff;
-  padding: 12px 16px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* list */
-#surveyForm .question-list{
-  display:flex;
-  flex-direction:column;
+.page-admin-survey-form #surveyForm .question-list{
+  display: flex;
+  flex-direction: column;
   gap: 14px;
 }
 
-/* 카드: 바깥 구분감 */
-#surveyForm .question-card{
-  background: #ffffff;
-  border: 1px solid var(--line2);
-  border-radius: var(--r-lg);
-  padding: var(--pad-card);
+/* question card: ui-card + padding */
+.page-admin-survey-form #surveyForm .question-card{
+  padding: var(--pad-card, 16px);
+  border-color: var(--line2);
   box-shadow: 0 1px 0 rgba(15,23,42,0.03), 0 10px 24px rgba(15,23,42,0.06);
 }
 
-#surveyForm .question-card:hover{
+.page-admin-survey-form #surveyForm .question-card:hover{
   border-color: var(--primary);
   box-shadow: 0 1px 0 rgba(15,23,42,0.04), 0 14px 34px rgba(15,23,42,0.10);
 }
 
-/* 헤더: 아래 라인으로 섹션 나누기 */
-#surveyForm .q-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+/* header */
+.page-admin-survey-form #surveyForm .q-head{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 12px;
   padding-bottom: 10px;
   margin-bottom: 12px;
   border-bottom: 1px solid var(--line);
 }
 
-#surveyForm .q-title{
+.page-admin-survey-form #surveyForm .q-title{
   font-weight: 900;
   font-size: 16px;
 }
 
-#surveyForm .q-tools{
-  display:flex;
+.page-admin-survey-form #surveyForm .q-tools{
+  display: flex;
   gap: 6px;
 }
 
-#surveyForm .q-tools button{
-  padding: 8px 10px;
-  border-radius: 10px;
-  background: #f1f5f9;
-}
-
-#surveyForm .q-tools .q-del{
+/* danger 버튼(삭제) */
+.page-admin-survey-form #surveyForm .ui-btn.ui-btn-danger{
   background: #fee2e2;
   color: #991b1b;
+  border: 1px solid #fecaca;
 }
 
-/* q-row: 안쪽 "칸"을 회색 박스로 만들기 */
-#surveyForm .q-row{
+/* row box */
+.page-admin-survey-form #surveyForm .q-row{
   margin-top: 10px;
   padding: 10px 12px;
   background: #f8fafc;
@@ -160,84 +127,79 @@
   border-radius: var(--r-md);
 }
 
-#surveyForm .q-row:first-of-type{
+.page-admin-survey-form #surveyForm .q-row:first-of-type{
   margin-top: 0;
 }
 
-/* inline row */
-#surveyForm .q-row-inline{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
+.page-admin-survey-form #surveyForm .q-row-inline{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-#surveyForm .q-row label{
+.page-admin-survey-form #surveyForm .q-label{
   font-size: 13px;
   font-weight: 900;
   color: var(--muted2);
 }
 
 /* inputs in card */
-#surveyForm .question-card input[type="text"],
-#surveyForm .question-card input[type="number"],
-#surveyForm .question-card select{
+.page-admin-survey-form #surveyForm .question-card input[type="text"],
+.page-admin-survey-form #surveyForm .question-card input[type="number"],
+.page-admin-survey-form #surveyForm .question-card select{
   border: 1px solid var(--line2);
   border-radius: var(--r-md);
   padding: 10px 12px;
   outline: none;
-  background:#fff;
+  background: #fff;
   color: var(--text);
 }
 
-#surveyForm .question-card input[type="text"]{
+.page-admin-survey-form #surveyForm .question-card input[type="text"]{
   width: 100%;
   box-sizing: border-box;
 }
 
-#surveyForm .question-card select{
+.page-admin-survey-form #surveyForm .question-card select{
   min-width: 170px;
 }
 
-#surveyForm .question-card input[type="number"]{
+.page-admin-survey-form #surveyForm .question-card input[type="number"]{
   width: 90px;
 }
 
-#surveyForm .question-card input:focus,
-#surveyForm .question-card select:focus{
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(17,24,39,0.12);
-}
-
 /* required */
-#surveyForm .q-req{
-  display:inline-flex;
-  align-items:center;
+.page-admin-survey-form #surveyForm .q-req{
+  display: inline-flex;
+  align-items: center;
   gap: 6px;
   font-size: 13px;
   color: var(--muted);
   font-weight: 900;
 }
 
-#surveyForm .q-req input{
+.page-admin-survey-form #surveyForm .q-req input{
   width: 16px;
   height: 16px;
 }
 
 /* hint */
-#surveyForm .q-hint{
+.page-admin-survey-form #surveyForm .q-hint{
   margin-top: 10px;
   color: var(--muted2);
   font-size: 13px;
+  font-weight: 800;
 }
 
-#surveyForm .q-hint-inline{
+.page-admin-survey-form #surveyForm .q-hint-inline{
   color: var(--muted2);
   font-size: 12px;
+  font-weight: 800;
 }
 
-/* choice-box도 박스로 분리 */
-#surveyForm .choice-box{
+/* choice box */
+.page-admin-survey-form #surveyForm .choice-box{
   margin-top: 12px;
   background: #f8fafc;
   border: 1px solid var(--line);
@@ -245,50 +207,47 @@
   padding: 12px;
 }
 
-#surveyForm .choice-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+.page-admin-survey-form #surveyForm .choice-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 10px;
   font-weight: 900;
 }
 
-#surveyForm .choice-head button{
-  background:#f1f5f9;
-  padding: 8px 12px;
-  border-radius: 10px;
-}
-
-#surveyForm .choice-row{
-  display:flex;
+.page-admin-survey-form #surveyForm .choice-row{
+  display: flex;
   gap: 8px;
-  align-items:center;
+  align-items: center;
   margin-top: 8px;
   padding: 8px;
   border-radius: 10px;
 }
 
-#surveyForm .choice-row:nth-child(even){
-  background:#ffffff;
+.page-admin-survey-form #surveyForm .choice-row:nth-child(even){
+  background: #ffffff;
   border: 1px solid var(--line);
 }
 
-#surveyForm .choice-row .c-text{
+.page-admin-survey-form #surveyForm .choice-row .c-text{
   flex: 1;
   width: auto;
 }
 
-#surveyForm .choice-row .c-del{
-  background:#fee2e2;
-  color:#991b1b;
-  padding: 8px 12px;
-  border-radius: 10px;
-}
-
-/* responsive */
 @media (max-width: 560px){
-  #surveyForm .q-tools{ gap: 4px; }
-  #surveyForm .q-tools button{ padding: 7px 8px; }
-  #surveyForm .question-card select{ min-width: 140px; }
-  #surveyForm .question-card input[type="number"]{ width: 100%; }
+  .page-admin-survey-form #surveyForm .meta-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .page-admin-survey-form #surveyForm .q-tools{
+    gap: 4px;
+  }
+
+  .page-admin-survey-form #surveyForm .question-card select{
+    min-width: 140px;
+  }
+
+  .page-admin-survey-form #surveyForm .question-card input[type="number"]{
+    width: 100%;
+  }
 }

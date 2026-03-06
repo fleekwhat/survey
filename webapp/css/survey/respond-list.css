@@ -1,87 +1,80 @@
 @charset "UTF-8";
 
-/* card */
-.page-my-response .card{
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
+/* respond-list.css (page-my-response 전용)
+   전역 공통 CSS가 있어도 충돌 없도록 스코프 강제 */
+
+/* ===== Head ===== */
+.page-my-response .myresp-head{
+  padding: 20px 22px;
+  margin-bottom: 16px;
+}
+
+.page-my-response .myresp-title{
+  margin: 0;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+}
+
+.page-my-response .myresp-desc{
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--muted2);
+}
+
+/* 테이블 라운드 안에서 스크롤/클립 안전 */
+.page-my-response .is-clip{
   overflow: hidden;
 }
 
-/* empty */
-.page-my-response .empty{
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  padding: 16px;
-  color: var(--muted);
-  font-weight: 800;
+/* 제목 강조 */
+.page-my-response .title-cell{
+  font-weight: 900;
 }
 
-/* table */
-.page-my-response .tbl{
-  width: 100%;
-  border-collapse: collapse;
+/* 기간: 셀은 가운데, 내부는 왼쪽 정렬로 두 줄 시작점 맞춤 */
+.page-my-response .period-cell{
+  text-align: center;
 }
 
-.page-my-response .tbl th{
+.page-my-response .period-cell .period-inner{
+  display: inline-block;
   text-align: left;
-  font-size: 12px;
-  letter-spacing: .2px;
-  color: var(--muted2);
-  background: #f1f5f9;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--line);
+  line-height: 1.25;
 }
 
-.page-my-response .tbl td{
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--line);
-  vertical-align: middle;
-  font-size: 14px;
+/* ~ 뒤에서 줄바꿈(2줄) */
+.page-my-response .period-cell .sep{
+  margin-left: 4px;
 }
 
-.page-my-response .tbl tr:last-child td{ border-bottom: 0; }
-.page-my-response .tbl tr:hover td{ background: #f8fafc; }
-
-/* title column */
-.page-my-response .title-cell{ font-weight: 900; }
-
-/* badge */
-.page-my-response .badge{
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: #f1f5f9;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 900;
-  border: 1px solid var(--line);
+.page-my-response .period-cell .sep::after{
+  content:"";
+  display:block;
 }
 
-/* buttons */
-.page-my-response .btn{
-  border: 0;
-  border-radius: var(--r-md);
-  padding: 8px 10px;
-  font-weight: 900;
-  cursor: pointer;
-  background: #e2e8f0;
-  color: var(--text);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.page-my-response .btn:hover{ filter: brightness(0.98); }
-
-.page-my-response .btn-sm{
-  padding: 7px 10px;
-  font-size: 13px;
+/* 컬럼 정렬
+   - 제목만 left
+   - 나머지 center */
+.page-my-response .ui-tbl td:nth-child(2){
+  text-align: left;
 }
 
-.page-my-response .btn-primary{
-  background: var(--primary);
-  color: #fff;
+.page-my-response .ui-tbl td:nth-child(1),
+.page-my-response .ui-tbl td:nth-child(3),
+.page-my-response .ui-tbl td:nth-child(4),
+.page-my-response .ui-tbl td:nth-child(5){
+  text-align: center;
+}
+
+/* ===== Mobile: 테이블 깨지지 않게 가로 스크롤 ===== */
+@media (max-width: 720px){
+  .page-my-response .is-clip{
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .page-my-response .ui-tbl{
+    min-width: 720px;
+  }
 }

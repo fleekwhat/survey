@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.dohyun.survey.dto.AdminResponseMetaDTO;
+import com.dohyun.survey.dto.AdminResponseRowDTO;
 import com.dohyun.survey.dto.MyResponseDTO;
 import com.dohyun.survey.vo.SurveyChoiceVO;
 import com.dohyun.survey.vo.SurveyMainVO;

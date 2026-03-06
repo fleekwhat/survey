@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+/* ===== Common Design Tokens (전 페이지 공통) ===== */
+:root{
+  --bg: #fff;
+
+  --text: #0f172a;
+  --muted: #475569;
+  --muted2: #64748b;
+
+  --line: #e5e7eb;
+  --line2: #cbd5e1;
+
+  --primary: #111827;
+  --danger: #ef4444;
+
+  --r-lg: 12px;
+  --r-md: 10px;
+
+  --pad-wrap-x: 16px;
+  --pad-card: 16px;
+}

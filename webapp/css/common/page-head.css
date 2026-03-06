@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+/* ===== Common Page Head ===== */
+.ui-page-head{
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,252,0.92));
+  box-shadow: 0 6px 18px rgba(15,23,42,0.05);
+  padding: 20px 22px;
+  margin-bottom: 16px;
+}
+
+.ui-page-title{
+  margin: 0;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+}
+
+.ui-page-desc{
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--muted2);
+}

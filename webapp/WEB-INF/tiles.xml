@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+  <definition name="layout" template="/WEB-INF/tiles/layout.jsp">
+    <put-attribute name="title" value="SurveyManager" />
+    <put-attribute name="css" value="" />
+    <put-attribute name="body" value="" />
+  </definition>
+
+  <!-- 개별 정의는 와일드카드보다 위 -->
+  
+  <definition name="admin/survey/dashboard" extends="layout">
+    <put-attribute name="title" value="Admin | 대시보드"/>
+    <put-attribute name="css" value="/css/survey/admin-dashboard.css"/>
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/survey/dashboard.jsp"/>
+  </definition>
+
+  <definition name="admin/survey/edit_forbidden" extends="layout">
+    <put-attribute name="title" value="Admin | 수정 불가"/>
+    <put-attribute name="css" value="/css/survey/admin-page-error.css"/>
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/survey/edit_forbidden.jsp"/>
+  </definition>
+  
+  <definition name="admin/survey/delete_error" extends="layout">
+    <put-attribute name="title" value="Admin | 삭제 불가"/>
+    <put-attribute name="css" value="/css/survey/admin-page-error.css"/>
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/survey/delete_error.jsp"/>
+  </definition>
+  
+  <definition name="admin/survey/edit" extends="layout">
+    <put-attribute name="title" value="Admin | 설문 수정"/>
+    <put-attribute name="css" value="/css/survey/admin-edit.css"/>
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/survey/edit.jsp"/>
+  </definition>
+  
+  <definition name="admin/survey/form" extends="layout">
+    <put-attribute name="title" value="Admin | 설문 생성"/>
+    <put-attribute name="css" value="/css/survey/admin-form.css"/>
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/survey/form.jsp"/>
+  </definition>
+  
+  <definition name="admin/survey/list" extends="layout">
+    <put-attribute name="title" value="Admin | 설문 관리"/>
+    <put-attribute name="css" value="/css/survey/admin-list.css"/>
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/survey/list.jsp"/>
+  </definition>
+  
+  <definition name="admin/survey/response_list" extends="layout">
+    <put-attribute name="title" value="Admin | 응답 목록"/>
+    <put-attribute name="css" value="/css/survey/admin-response-list.css"/>
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/survey/response_list.jsp"/>
+  </definition>
+  
+  <definition name="admin/survey/response_view" extends="layout">
+    <put-attribute name="title" value="Admin | 응답 상세"/>
+    <put-attribute name="css" value="/css/survey/admin-response-view.css"/>
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/survey/response_view.jsp"/>
+  </definition>
+  
+  <definition name="respond/survey/response_view" extends="layout">
+    <put-attribute name="title" value="내 응답 상세"/>
+    <put-attribute name="css" value="/css/survey/respond-response-view.css"/>
+    <put-attribute name="body" value="/WEB-INF/jsp/respond/survey/response_view.jsp"/>
+  </definition>
+  
+  <definition name="respond/survey/my_response" extends="layout">
+    <put-attribute name="title" value="내가 제출한 설문"/>
+    <put-attribute name="css" value="/css/survey/respond-my-response.css"/>
+    <put-attribute name="body" value="/WEB-INF/jsp/respond/survey/my_response.jsp"/>
+  </definition>
+  
+  <definition name="respond/survey/list" extends="layout">
+    <put-attribute name="title" value="진행중 설문"/>
+    <put-attribute name="css" value="/css/survey/respond-list.css"/>
+    <put-attribute name="body" value="/WEB-INF/jsp/respond/survey/list.jsp"/>
+  </definition>
+  
+  <definition name="respond/survey/home" extends="layout">
+    <put-attribute name="title" value="설문조사"/>
+    <put-attribute name="css" value="/css/survey/respond-home.css"/>
+    <put-attribute name="body" value="/WEB-INF/jsp/respond/survey/home.jsp"/>
+  </definition>
+  
+  <definition name="respond/survey/edit" extends="layout">
+    <put-attribute name="title" value="응답 수정"/>
+    <put-attribute name="css" value="/css/survey/respond-edit.css"/>
+    <put-attribute name="body" value="/WEB-INF/jsp/respond/survey/edit.jsp"/>
+  </definition>
+  
+  <definition name="respond/survey/complete" extends="layout">
+    <put-attribute name="title" value="제출 완료"/>
+    <put-attribute name="css" value="/css/survey/respond-complete.css"/>
+    <put-attribute name="body" value="/WEB-INF/jsp/respond/survey/complete.jsp"/>
+  </definition>
+  
+  <definition name="auth/member/login_form" extends="layout">
+	<put-attribute name="title" value="로그인폼"/>
+	<put-attribute name="css" value="/css/common/login-form.css"/>
+	<put-attribute name="body" value="/WEB-INF/jsp/auth/member/login_form.jsp"/>
+  </definition>
+  
+  <definition name="error/403" extends="layout">
+    <put-attribute name="title" value="403 - 접근 권한 없음"/>
+    <put-attribute name="css" value="/css/common/error.css"/>
+    <put-attribute name="body" value="/WEB-INF/jsp/common/403.jsp"/>
+  </definition>
+  
+  <!-- 와일드카드는 맨 아래 -->
+  <definition name="*" extends="layout">
+    <put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
+  </definition>
+
+  <definition name="*/*" extends="layout">
+    <put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
+  </definition>
+
+  <definition name="*/*/*" extends="layout">
+    <put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}.jsp" />
+  </definition>
+
+</tiles-definitions>

@@ -1,111 +1,102 @@
 @charset "UTF-8";
 
-/* view.css가 body/wrap/title/토큰 담당
-   이 파일은 테이블/카드/버튼 전용만 */
+/* ========================================
+   이 페이지는 ui.css 기반
+   - 카드: .ui-card
+   - 테이블: .ui-tbl
+   - 버튼: .ui-btn
+   여기서는 정렬/링크/버튼 배치/반응형만 보정
+   주의: 레이아웃이 이미 .wrap을 제공하므로 .wrap 스코프 금지
+======================================== */
 
-.wrap .card{
-  background: var(--bg);
-  border: 1px solid var(--line);
+/* ===== Head (home과 동일 스타일) ===== */
+.page-my-response .myresp-head{
+  border: 1px solid rgba(15,23,42,0.08);
   border-radius: var(--r-lg);
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,252,0.92));
+  box-shadow: 0 6px 18px rgba(15,23,42,0.05);
+  padding: 20px 22px;
+  margin-bottom: 16px;
+}
+
+.page-my-response .myresp-title{
+  margin: 0;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+}
+
+.page-my-response .myresp-desc{
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--muted2);
+}
+
+/* 테이블 카드 라운드 유지 */
+.page-my-response .is-clip{
   overflow: hidden;
 }
 
-.wrap .tbl{
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.wrap .tbl th{
-  text-align: left;
-  font-size: 12px;
-  letter-spacing: .2px;
-  color: var(--muted2);
-  background: #f1f5f9;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--line);
-}
-
-.wrap .tbl td{
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--line);
-  vertical-align: middle;
-  font-size: 14px;
-}
-
-.wrap .tbl tr:last-child td{ border-bottom: 0; }
-.wrap .tbl tr:hover td{ background: #f8fafc; }
-
-.wrap .tbl a{
+/* 링크(설문 제목) */
+.page-my-response .ui-tbl a{
   color: var(--text);
   text-decoration: none;
-  font-weight: 800;
+  font-weight: 900;
 }
-.wrap .tbl a:hover{ text-decoration: underline; }
+.page-my-response .ui-tbl a:hover{
+  text-decoration: underline;
+}
 
-.wrap .actions{
-  white-space: nowrap;
+/* ========================================
+   컬럼 정렬
+   - td: 제목(2열)만 왼쪽, 나머지는 가운데
+======================================== */
+.page-my-response .ui-tbl td:nth-child(2){
+  text-align: left;
+}
+
+.page-my-response .ui-tbl td:nth-child(1),
+.page-my-response .ui-tbl td:nth-child(3),
+.page-my-response .ui-tbl td:nth-child(4),
+.page-my-response .ui-tbl td:nth-child(5){
+  text-align: center;
+}
+
+/* ========================================
+   관리 버튼 영역
+======================================== */
+.page-my-response .actions{
   display: inline-flex;
-  gap: 8px;
   align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
 }
 
-.wrap .inline{
+.page-my-response .inline{
   display: inline;
   margin: 0;
 }
 
-.wrap .btn{
-  border: 1px solid transparent;
-  border-radius: 12px;
-  padding: 8px 12px;
-  font-weight: 900;
-  cursor: pointer;
-  background: #e2e8f0;
-  color: var(--text);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  text-decoration: none;
-  line-height: 1;
-  transition: transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
-}
-
-.wrap .btn:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
-}
-
-.wrap .btn:active{
-  transform: translateY(0);
-  box-shadow: none;
-}
-
-.wrap .btn-sm{
-  padding: 7px 10px;
-  font-size: 13px;
-  border-radius: 11px;
-}
-
-.wrap .btn-sub{
-  background: #f1f5f9;
-  border-color: var(--line);
-}
-
-.wrap .btn-danger{
-  background: #fff;
-  border-color: #fecaca;
-  color: #991b1b;
-}
-
-.wrap .btn-danger:hover{
-  background: #fee2e2;
-  border-color: #fca5a5;
-}
-
+/* ========================================
+   모바일
+   - 제출일(4열) 숨김
+   - 테이블이 찌그러지면 가로 스크롤
+======================================== */
 @media (max-width: 560px){
-  .wrap .tbl th:nth-child(4),
-  .wrap .tbl td:nth-child(4){
+  .page-my-response .ui-tbl th:nth-child(4),
+  .page-my-response .ui-tbl td:nth-child(4){
     display: none;
+  }
+}
+
+@media (max-width: 720px){
+  .page-my-response .is-clip{
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .page-my-response .ui-tbl{
+    min-width: 720px;
   }
 }

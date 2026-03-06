@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+/* ===== Error Page (ui.css 기반) ===== */
+
+.page-error{
+  max-width: 720px;
+  margin: 60px auto;
+  padding: 0 var(--pad-wrap-x, 18px);
+}
+
+.page-error .error-card{
+  text-align: center;
+  padding: 34px 26px;
+}
+
+/* badges */
+.page-error .error-badges{
+  display: inline-flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+/* code */
+.page-error .error-code{
+  margin: 0;
+  font-size: 54px;
+  font-weight: 900;
+  letter-spacing: -0.8px;
+  color: #991b1b; /* danger 톤 */
+}
+
+/* title/desc */
+.page-error .error-title{
+  margin: 10px 0 4px;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--text);
+}
+
+.page-error .error-desc{
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted2);
+}
+
+/* message box */
+.page-error .error-msg{
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: var(--r-md);
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  font-weight: 800;
+  word-break: break-word;
+}
+
+/* actions */
+.page-error .error-actions{
+  margin-top: 18px;
+  display: inline-flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 560px){
+  .page-error{
+    margin: 36px auto;
+  }
+
+  .page-error .error-code{
+    font-size: 46px;
+  }
+
+  .page-error .error-actions{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-error .error-actions .ui-btn{
+    width: 100%;
+  }
+}

@@ -1,52 +1,130 @@
 @charset "UTF-8";
 
-/* ===== 응답 상세용 보조 스타일 ===== */
-.answer-row{
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
-  margin-top:10px;
+/* ===== head 보정 ===== */
+.page-response-view .respv-head{
+  /* ui-page-head 기반, 추가로 배지 라인만 정리 */
 }
 
-.answer-text{
-  font-weight:700;
+.page-response-view .respv-badges{
+  display: inline-flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.page-response-view .respv-meta{
+  /* ui-page-desc 그대로 써도 되지만 줄바꿈 안전 */
+  white-space: normal;
+}
+
+/* ===== question card ===== */
+.page-response-view .respv-qcard{
+  padding: var(--pad-card, 18px);
+  margin: 12px 0;
+}
+
+.page-response-view .respv-qhead{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.page-response-view .respv-qname{
+  margin: 0;
+  font-weight: 900;
+  line-height: 1.25;
+  word-break: break-word;
+}
+
+/* ===== rows ===== */
+.page-response-view .respv-row{
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.page-response-view .respv-text{
+  font-weight: 700;
   color: var(--text);
+  word-break: break-word;
 }
 
-.answer-box{
-  width:100%;
-  padding:10px;
-  border:1px solid var(--line2);
+/* 긴 텍스트 답변 박스 */
+.page-response-view .respv-box{
+  flex: 1 1 auto;
+  min-width: 0;
+
+  padding: 10px 12px;
+  border: 1px solid var(--line2);
   border-radius: var(--r-md);
-  background:#fff;
-  white-space:pre-wrap;
-  word-break:break-word;
+  background: #fff;
+
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
-/* ===== STAR read-only fill layer ===== */
-/* 기존 view.css의 .star5 / .star5-icons 를 그대로 이용 */
-.star5-readonly{
+.page-response-view .respv-hint{
+  color: var(--muted2);
+  font-size: 13px;
+  margin-left: 6px;
+}
+
+/* ===== STAR read-only fill layer (view.css와 충돌 방지 위해 전용 클래스 사용) ===== */
+.page-response-view .respv-star5{
   position: relative;
   width: 125px;
   height: 28px;
+  display: inline-block;
 }
 
-/* 채움 레이어: width만 JS로 늘림 */
-.star5-readonly .star5-fill{
-  position:absolute;
-  inset:0;
-  width:0%;
-  overflow:hidden;
-  z-index:2;
-  pointer-events:none;
+.page-response-view .respv-star5-icons{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  z-index: 1;
+  pointer-events: none;
 }
 
-/* 노란 별 */
-.star5-readonly .star5-fill .star5-icons svg{
-  fill:#f59e0b !important;
+.page-response-view .respv-star5-icons svg{
+  width: 24px;
+  height: 24px;
+  fill: var(--line);
+  display: block;
+  flex: 0 0 auto;
 }
 
-/* 혹시 클릭 overlay가 남아있으면 무력화 */
-.star5-readonly .star5-overlay{
-  display:none !important;
+.page-response-view .respv-star5-fill{
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  overflow: hidden;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.page-response-view .respv-star5-fill .respv-star5-icons svg{
+  fill: #f59e0b;
+}
+
+
+
+/* ===== Mobile ===== */
+@media (max-width: 600px){
+  .page-response-view .respv-qhead{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page-response-view .respv-row{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page-response-view .respv-hint{
+    margin-left: 0;
+    margin-top: 4px;
+  }
 }

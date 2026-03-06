@@ -23,7 +23,7 @@ public class AdminInterceptor implements HandlerInterceptor {
 	    MemberVO m = (MemberVO) obj;
 
 	    if (!"ADMIN".equals(m.getRole())) {
-	      response.sendRedirect(request.getContextPath() + "/error/403.do");
+	      response.sendRedirect(request.getContextPath() + "/admin/survey/error/403.do");
 	      return false;
 	    }
 

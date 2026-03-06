@@ -1,22 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>설문조사</title>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/survey/view.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/survey/respond-home.css">
-</head>
-<body>
+<div class="page-respond-home">
 
-<div class="wrap">
-  <h1 class="title">설문조사</h1>
+  <div class="ui-card ui-page-head">
+    <h1 class="ui-page-title">설문조사</h1>
+    <p class="ui-page-desc">원하는 메뉴를 선택하세요.</p>
+  </div>
 
   <div class="home-grid">
-
-    <a class="home-card"
+    <a class="ui-card home-card"
        href="${pageContext.request.contextPath}/respond/survey/list.do">
       <div class="home-icon">📝</div>
       <div class="home-text">
@@ -25,7 +17,7 @@
       </div>
     </a>
 
-    <a class="home-card sub"
+    <a class="ui-card home-card"
        href="${pageContext.request.contextPath}/respond/survey/my_response.do">
       <div class="home-icon">📂</div>
       <div class="home-text">
@@ -33,9 +25,6 @@
         <div class="home-desc">내 응답 내역 확인하기</div>
       </div>
     </a>
-
   </div>
-</div>
 
-</body>
-</html>
+</div>

@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+/* 페이지 영역 */
+.page-error{
+  padding: 24px 0 40px;
+}
+
+/* 카드 */
+.page-error .error-card{
+  max-width: 720px;        /* 카드만 좁힘 */
+  margin: 0 auto;
+  padding: 28px;
+  text-align: center;
+}
+
+/* 배지 */
+.page-error .error-badges{
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+/* 제목 */
+.page-error .error-title{
+  margin: 0 0 10px;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--text);
+}
+
+/* 메시지 */
+.page-error .error-msg{
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted2);
+  font-weight: 800;
+  white-space: pre-wrap;
+}
+
+/* 버튼 영역 */
+.page-error .error-actions{
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* 모바일 */
+@media (max-width: 560px){
+
+  .page-error .error-actions{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-error .error-actions .ui-btn{
+    width: 100%;
+  }
+
+}

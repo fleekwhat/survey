@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+/* ===============================
+   제출 완료 페이지 (page scope)
+   - 전역 .wrap 절대 건드리지 않음
+=============================== */
+
+.page-survey-complete{
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 0 var(--pad-wrap-x, 16px);
+}
+
+/* 카드 */
+.page-survey-complete .sv-complete{
+  text-align: center;
+  padding: 40px 28px;
+}
+
+/* badges */
+.page-survey-complete .sv-complete-badges{
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+/* title */
+.page-survey-complete .sv-title{
+  margin: 0 0 10px;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--text);
+}
+
+/* description */
+.page-survey-complete .sv-desc{
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* meta */
+.page-survey-complete .sv-meta{
+  font-size: 13px;
+  color: var(--muted2);
+}
+
+/* 버튼 영역 */
+.page-survey-complete .sv-actions{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* 모바일 */
+@media (max-width: 560px){
+  .page-survey-complete{
+    margin: 28px auto;
+  }
+
+  .page-survey-complete .sv-title{
+    font-size: 20px;
+  }
+
+  .page-survey-complete .sv-actions{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-survey-complete .sv-actions .ui-btn{
+    width: 100%;
+  }
+}

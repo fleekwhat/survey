@@ -16,17 +16,24 @@
     
     <mvc:interceptors>
 
-	  <!-- 로그인 필요한 영역 -->
+	<!-- 로그인 필요한 영역 -->
 	  <mvc:interceptor>
-	    <mvc:mapping path="/respond/**"/>
-	    <mvc:mapping path="/admin/**"/>
+	  	<mvc:mapping path="/respond/survey/submit.do"/>
+	    <mvc:mapping path="/respond/survey/complete.do"/>
+	    <mvc:mapping path="/respond/survey/my_response.do"/>
+	    <mvc:mapping path="/respond/survey/response_view.do"/>
+	    <mvc:mapping path="/respond/survey/edit.do"/>
+	    <mvc:mapping path="/respond/survey/update.do"/>
+	    <mvc:mapping path="/respond/survey/delete.do"/>
 	    <bean class="com.dohyun.survey.interceptor.LoginInterceptor"/>
 	  </mvc:interceptor>
+
 	
-	  <!-- 관리자 전용 영역 -->
-	  <mvc:interceptor>
-	    <mvc:mapping path="/admin/**"/>
-	    <bean class="com.dohyun.survey.interceptor.AdminInterceptor"/>
+	<!-- 관리자 전용 영역 -->
+	<mvc:interceptor>
+		<mvc:mapping path="/admin/**"/>
+		<mvc:exclude-mapping path="/auth/**"/>
+	<bean class="com.dohyun.survey.interceptor.AdminInterceptor"/>
 	  </mvc:interceptor>
 	
 	</mvc:interceptors>

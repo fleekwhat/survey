@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>인덱스</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/survey/view.css">
 </head>
 <body>
 

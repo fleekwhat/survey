@@ -1,58 +1,93 @@
 @charset "UTF-8";
 
-/* 이 파일은 응답 수정 페이지 전용: 전역(:root/body/button) 절대 건드리지 말 것 */
+/* 응답 수정 페이지 전용: 전역(:root/body/button) 건드리지 않음 */
 
-/* 레이아웃(해당 페이지에서만) */
-.page-respond-edit .wrap{
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 0 var(--pad-wrap-x);
+/* ===== head ===== */
+.page-respond-edit .edit-head-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
-.page-respond-edit .title{
-  margin: 0 0 10px;
-  font-size: 18px;
-  font-weight: 900;
+.page-respond-edit .edit-badges{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.page-respond-edit .edit-actions{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 /* meta */
 .page-respond-edit .survey-meta{
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
   padding: 18px;
   margin-bottom: 16px;
 }
+
 .page-respond-edit .survey-meta > div{
   margin: 6px 0;
   color: var(--text);
 }
+
 .page-respond-edit .survey-meta b{
   color: var(--muted2);
 }
 
 /* qcard */
 .page-respond-edit .qcard{
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
   padding: var(--pad-card, 16px);
+  margin: 12px 0;
 }
 
-.page-respond-edit .qcard > p{
+.page-respond-edit .qhead{
   margin: 0 0 12px;
   font-weight: 900;
   font-size: 16px;
+  line-height: 1.35;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
 }
-.page-respond-edit .qcard > p span{
-  font-weight: 800;
+
+.page-respond-edit .qno{
+  font-weight: 900;
+}
+
+.page-respond-edit .qtext{
+  font-weight: 900;
+  word-break: break-word;
+}
+
+/* pill */
+.page-respond-edit .pill{
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: var(--muted);
   font-size: 12px;
-  color: var(--muted2);
-  margin-left: 6px;
+  font-weight: 900;
+  border: 1px solid var(--line);
+}
+
+.page-respond-edit .pill-req{
+  color: #991b1b;
+  background: #fee2e2;
+  border-color: #fecaca;
 }
 
 /* inputs */
-.page-respond-edit .qcard textarea,
+.page-respond-edit .ui-input,
 .page-respond-edit .qcard input[type="text"],
 .page-respond-edit .qcard input[type="number"]{
   width: 100%;
@@ -65,46 +100,48 @@
   color: var(--text);
 }
 
-.page-respond-edit .qcard textarea{
-  min-height: 110px;
-  resize: vertical;
-}
-
 .page-respond-edit .qcard input[type="number"]{
   width: 180px;
 }
 
-.page-respond-edit .qcard textarea:focus,
-.page-respond-edit .qcard input:focus{
+.page-respond-edit .ui-input:focus,
+.page-respond-edit .qcard input:focus,
+.page-respond-edit .ui-textarea:focus{
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(17,24,39,0.12);
 }
 
 /* options */
-.page-respond-edit .qcard label{
+.page-respond-edit .opts{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.page-respond-edit .opt{
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 8px 0;
   font-size: 14px;
   color: var(--text);
 }
 
-.page-respond-edit .qcard input[type="radio"],
-.page-respond-edit .qcard input[type="checkbox"]{
+.page-respond-edit .opt input[type="radio"],
+.page-respond-edit .opt input[type="checkbox"]{
   width: 16px;
   height: 16px;
 }
 
 /* hint */
-.page-respond-edit .qcard .hint{
+.page-respond-edit .hint{
   margin-top: 10px;
   color: var(--muted2);
   font-size: 13px;
+  font-weight: 800;
 }
 
 /* error */
-.page-respond-edit .qcard .error{
+.page-respond-edit .error{
   display: none;
   margin-top: 10px;
   color: #991b1b;
@@ -115,43 +152,15 @@
   padding: 10px 12px;
 }
 
-.page-respond-edit .qcard hr{
-  border: 0;
-  border-top: 1px dashed var(--line);
-  margin: 14px 0 0;
-}
-
-/* submit buttons: 전역 button 금지, 이 영역만 */
+/* submit */
 .page-respond-edit .survey-submit{
   margin: 18px 0 40px;
   display: flex;
   gap: 10px;
+  justify-content: flex-end;
 }
 
-.page-respond-edit .survey-submit button{
-  border: 0;
-  border-radius: var(--r-lg);
-  padding: 10px 14px;
-  font-weight: 800;
-  cursor: pointer;
-  background: #e2e8f0;
-  color: var(--text);
-}
-
-.page-respond-edit .survey-submit button:hover{ filter: brightness(0.98); }
-.page-respond-edit .survey-submit button:disabled{ opacity: .6; cursor: not-allowed; }
-
-.page-respond-edit .survey-submit button[type="submit"]{
-  background: var(--primary);
-  color: #fff;
-  padding: 12px 16px;
-}
-
-.page-respond-edit .btn-sub{
-  background: #f1f5f9;
-}
-
-/* STAR */
+/* STAR (기존 유지) */
 .page-respond-edit .star5{
   position: relative;
   display: inline-block;
@@ -181,8 +190,6 @@
   height: 24px;
   fill: var(--line);
   display: block;
-  margin: 0;
-  padding: 0;
   flex: 0 0 auto;
 }
 
@@ -206,10 +213,19 @@
   margin-top: 6px;
   color: var(--muted2);
   font-size: 13px;
+  font-weight: 800;
 }
 
 @media (max-width: 560px){
-  .page-respond-edit .wrap{ margin: 20px auto; }
-  .page-respond-edit .qcard > p{ font-size: 15px; }
-  .page-respond-edit .qcard input[type="number"]{ width: 100%; }
+  .page-respond-edit{
+    margin: 20px auto;
+  }
+
+  .page-respond-edit .qhead{
+    font-size: 15px;
+  }
+
+  .page-respond-edit .qcard input[type="number"]{
+    width: 100%;
+  }
 }

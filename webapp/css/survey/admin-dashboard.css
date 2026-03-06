@@ -1,60 +1,106 @@
 @charset "UTF-8";
 
-/* view.css 토큰 그대로 사용 */
+/* page-admin-dashboard: 폭/패딩/센터링 금지 */
+.page-admin-dashboard{
+  /* breadcrumb 아래 간격만 필요하면 여기 */
+  margin-top: 8px;
+}
 
-.dash-card{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 14px;
-  padding: 20px;
+/* Head (home 톤) */
+.page-admin-dashboard .dash-head{
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,252,0.92));
+  box-shadow: 0 6px 18px rgba(15,23,42,0.05);
+}
+
+/* 메뉴 카드 묶음 */
+.page-admin-dashboard .dash-card{
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 /* 버튼 카드 */
-.dash-btn{
+.page-admin-dashboard .dash-btn{
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 
-  padding: 18px;
-  border-radius: 14px;
-  border: 1px solid var(--line);
-  background: #ffffff;
-
+  padding: 14px;
+  border-radius: var(--r-md);
   text-decoration: none;
-  color: var(--text);
-  transition: all .15s ease;
+  color: inherit;
+
+  border: 1px solid var(--line);
+  background: #fff;
+
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease;
 }
 
-.dash-btn:hover{
+.page-admin-dashboard .dash-btn:hover{
   background: #f8fafc;
-  border-color: var(--line2);
+  border-color: rgba(15,23,42,0.14);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 26px rgba(15,23,42,0.09);
 }
 
 /* 아이콘 */
-.dash-icon{
+.page-admin-dashboard .dash-icon{
   width: 48px;
   height: 48px;
-  border-radius: 12px;
-  background: #f1f5f9;
+  border-radius: 14px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
+
+  background: rgba(15,23,42,0.04);
+  border: 1px solid rgba(15,23,42,0.06);
 
   font-size: 22px;
   font-weight: 900;
+  color: var(--text);
+  flex: 0 0 auto;
 }
 
 /* 텍스트 */
-.dash-title{
-  font-weight: 900;
-  font-size: 15px;
-  margin-bottom: 4px;
+.page-admin-dashboard .dash-text{
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
 }
 
-.dash-desc{
-  font-size: 13px;
+.page-admin-dashboard .dash-title{
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  line-height: 1.2;
+}
+
+.page-admin-dashboard .dash-desc{
+  font-size: 12px;
   color: var(--muted2);
+  line-height: 1.25;
+}
+
+/* 모바일 */
+@media (max-width:600px){
+  .page-admin-dashboard .dash-head{
+    padding: 16px;
+  }
+  .page-admin-dashboard .dash-card{
+    padding: 14px;
+  }
+  .page-admin-dashboard .dash-btn{
+    padding: 12px;
+    gap: 12px;
+  }
+  .page-admin-dashboard .dash-icon{
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    font-size: 20px;
+  }
 }

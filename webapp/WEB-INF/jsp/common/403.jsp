@@ -1,26 +1,31 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="error-box">
-  <h1>403</h1>
-  <p>해당 페이지에 접근할 권한이 없습니다.</p>
-  
-  <c:if test="${not empty msg}">
-    <p style="margin-top:12px; font-weight:700;">${msg}</p>
-  </c:if>
-  
-  <a class="btn" href="${pageContext.request.contextPath}/respond/survey/main.do">메인으로 이동</a>
-</div>
+<div class="page-error">
 
-<style>
-  .error-box{
-    background:#fff; padding:50px; border-radius:10px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.1);
-    text-align:center; max-width:420px; margin:60px auto;
-  }
-  .error-box h1{ font-size:60px; color:#e74c3c; margin:0 0 10px; }
-  .error-box p{ color:#555; margin:0 0 30px; }
-  .btn{ display:inline-block; padding:10px 20px; background:#3498db; color:#fff;
-        text-decoration:none; border-radius:5px; }
-  .btn:hover{ background:#2980b9; }
-</style>
+  <div class="ui-card error-card">
+    <div class="error-badges">
+      <span class="ui-badge">ERROR</span>
+      <span class="ui-badge">403</span>
+    </div>
+
+    <h1 class="error-code">403</h1>
+    <p class="error-title">접근 권한이 없습니다.</p>
+    <p class="error-desc">해당 페이지에 접근할 권한이 없습니다.</p>
+
+    <c:if test="${not empty msg}">
+      <div class="error-msg">
+        ${msg}
+      </div>
+    </c:if>
+
+    <div class="error-actions">
+      <a class="ui-btn ui-btn-primary"
+         href="${pageContext.request.contextPath}/respond/survey/home.do">
+        메인으로 이동
+      </a>
+      <button type="button" class="ui-btn" onclick="history.back()">뒤로</button>
+    </div>
+  </div>
+
+</div>
